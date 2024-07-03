@@ -1,0 +1,27 @@
+/* src/index.css */
+.loader {
+  border-top-color: #153c27;
+  border-radius: 50%;
+  width: 40px; /* 크기를 조정할 수 있습니다 */
+  height: 40px; /* 크기를 조정할 수 있습니다 */
+  -webkit-animation: spin 1s ease-in-out infinite;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
