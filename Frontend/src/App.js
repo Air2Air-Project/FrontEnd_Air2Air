@@ -4,6 +4,7 @@ import { RecoilRoot } from 'recoil';
 import WebSocketProvider from './components/WebSocketProvider';
 import Main_Page from './Pages/Main_Page.js';
 import Map_Page from './Pages/Map_Page.js';
+import Login_Page from './Pages/Login_Page.js';
 
 // import { isLoggedInState } from './recoil/atoms';
 // import { useRecoilValue } from 'recoil';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Main_Page />} />
           <Route path="/map" element={<Map_Page />} />
           {/* <Route path="/myPage" element={<PrivateRoute><My_Page /></PrivateRoute>} /> */}
+          <Route path="/login" element={<Login_Page />} />
         </Routes>
       </BrowserRouter>
       </WebSocketProvider>

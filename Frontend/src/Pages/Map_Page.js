@@ -7,7 +7,7 @@ export default function Map_Page() {
   return (
     <>
     <Nav/>
-    <div className="bg-gray-700 text-white text-center rounded-t-3xl p-3">
+    <div className="bg-[#17444F] text-white text-center rounded-t-3xl p-3 h-[100vh]">
       <h1 className="text-2xl font-bold mb-4 text-center m-5">폐수 처리장 위치</h1>
       <LocationSel/>
       <Map />

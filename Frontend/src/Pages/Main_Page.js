@@ -11,7 +11,7 @@ export default function Main_Page() {
   return (
     <>
     <Nav/>
-    <div className="flex flex-col h-screen bg-gray-700 text-white text-center rounded-t-3xl p-3">
+    <div className="flex flex-col h-[100vh] bg-[url('./components/background/waterbg6.png')] bg-cover text-white text-center rounded-t-3xl p-3">
     어쩌구 저쩌구
     <button className='bg-red-800' title='지진'/>
   </div>
