@@ -8,6 +8,7 @@ const navigation = [
   { name: 'comprehend', href: '#' },
   { name: 'realtime', href: '#' },
   { name: 'pastdata', href: '#' },
+  { name: 'board', href: '/board' },
 ]
 
 export default function Nav() {
