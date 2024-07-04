@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import './Nav.css';
 
 const navigation = [
-  { name: '처리장위치', href: '/map' },
-  { name: 'comprehend', href: '#' },
-  { name: 'realtime', href: '#' },
-  { name: 'pastdata', href: '#' },
-  { name: 'board', href: '/board' },
+  { name: 'Location', href: '/map' },
+  { name: 'Comprehend', href: '#' },
+  { name: 'Realtime', href: '#' },
+  { name: 'Pastdata', href: '#' },
+  { name: 'Board', href: '/board' },
 ]
 
 export default function Nav() {
@@ -35,13 +36,13 @@ export default function Nav() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+            <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900 hover:text-shadow">
               {item.name}
             </a>
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">
+          <a href="/login" className="text-sm font-semibold leading-6 text-gray-900 hover:text-shadow">
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
         </div>

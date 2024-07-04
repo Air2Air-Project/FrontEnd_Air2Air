@@ -2,6 +2,8 @@ import {useState, useEffect,Fragment } from 'react';
 import address from '../data/address.json'
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { useRecoilState } from 'recoil';
+import { locationState } from '../recoil/atoms';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -13,6 +15,7 @@ export default function LocationSel({ onChange = () => {} }) {
     const [selectedMedium, setSelectedMedium] = useState('');
     const [selectedSmall, setSelectedSmall] = useState('');
     const [smallCategories, setSmallCategories] = useState([]);
+    const [location, setLocation] = useRecoilState(locationState);
 
     useEffect(() => {
       let tm = address.map(item => item.sido);
@@ -22,6 +25,7 @@ export default function LocationSel({ onChange = () => {} }) {
     }, []);
 
     const handleLargeChange = (value) => {
+      // setLocation({ sido: value, gugun: '', eupmyeondong: '' });
       setSelectedLarge(value);
       const filteredMediums = address.filter(item => item.sido === value).map(item => item.gugun);
       setMediumCategories([...new Set(filteredMediums)]);
@@ -31,6 +35,7 @@ export default function LocationSel({ onChange = () => {} }) {
     };
 
     const handleMediumChange = (value) => {
+      // setLocation(prev => ({ ...prev, gugun: value, eupmyeondong: '' }));
       setSelectedMedium(value);
       const filteredSmalls = address.filter(item => item.sido === selectedLarge && item.gugun === value).map(item => item.eupmyeondong);
       setSmallCategories([...new Set(filteredSmalls)]);
@@ -38,11 +43,12 @@ export default function LocationSel({ onChange = () => {} }) {
     };
 
     const handleSmallChange = (value) => {
+      // setLocation(prev => ({ ...prev, eupmyeondong: value }));
       setSelectedSmall(value);
-      const newLocation = { sido: selectedLarge, gugun: selectedMedium, eupmyeondong: value };
-      // setUserLocation(newLocation); -> 삭제해야 함
-      //-> userLocation은 RegionId가 들어가야하는데 셀렉트주소가 들어가서 계속 오브젝트로 넘어와 에러 발생
+      const newLocation = { eupmyeondong: value };
+      console.log("newLocation:", newLocation);
       onChange(newLocation);
+      setLocation(newLocation);
     };
 
     return (

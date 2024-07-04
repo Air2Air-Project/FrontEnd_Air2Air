@@ -1,71 +1,67 @@
-// import { useEffect, useRef } from 'react';
-
-// function Map() {
-//   const mapRef = useRef(null);
-//   const { naver } = window;
-  
-//   useEffect(() => {
-//     // 네이버 지도 옵션 선택
-//     const mapOptions = {
-//       // 지도의 초기 중심 좌표
-//       center: new naver.maps.LatLng(37.5666103, 126.9783882),
-//       logoControl: false, // 네이버 로고 표시 X
-//       mapDataControl: false, // 지도 데이터 저작권 컨트롤 표시 X
-//       scaleControl: true, // 지도 축척 컨트롤의 표시 여부
-//       tileDuration: 200, // 지도 타일을 전환할 때 페이드 인 효과의 지속 시간(밀리초)
-//       zoom: 14, // 지도의 초기 줌 레벨
-//       zoomControl: true, // 줌 컨트롤 표시
-//       zoomControlOptions: { position: 9 }, // 줌 컨트롤 우하단에 배치
-//     };
-//     mapRef.current = new naver.maps.Map(
-//       'map',
-//       mapOptions
-//     );
-//   }, [naver.maps.Map, naver.maps.LatLng]);
-
-//   return <div id="map" />
-// }
-
-// export default Map;
-
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { locationState } from '../recoil/atoms';
 
 const Map = () => {
   const mapRef = useRef(null);
+  const location = useRecoilValue(locationState);
+  const mapInstance = useRef(null);
+  const [lat, setLat] = useState(37.54);  // 초기 위도
+  const [lng, setLng] = useState(126.99); // 초기 경도
 
   useEffect(() => {
     const initializeMap = () => {
       const { naver } = window;
 
       if (naver && naver.maps) {
-        const map = new naver.maps.Map(mapRef.current, {
-          center: new naver.maps.LatLng(37.3595704, 127.105399),
+        mapInstance.current = new naver.maps.Map(mapRef.current, {
+          center: new naver.maps.LatLng(lat, lng),
           zoom: 10,
         });
       }
     };
 
-    if (window.naver && window.naver.maps) {
-      initializeMap();
-    } else {
+    const loadScript = () => {
       const script = document.createElement('script');
-      script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gqjaav5eki`;
+      script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gqjaav5eki&submodules=geocoder';
       script.async = true;
       script.onload = initializeMap;
       document.head.appendChild(script);
+    };
+
+    if (window.naver && window.naver.maps) {
+      initializeMap();
+    } else {
+      loadScript();
     }
-  }, []);
+  }, [lat, lng]);  // 초기 위도와 경도를 의존성 배열에 추가
+
+  useEffect(() => {
+    const { naver } = window;
+    if (location.eupmyeondong) {
+      const address = `${location.eupmyeondong}`;
+      console.log("address:", address);
+
+      naver.maps.Service.geocode({ query: address }, function(status, response) {
+        if (status !== naver.maps.Service.Status.OK) {
+          return alert('Something wrong!');
+        }
+        const result = response.v2.addresses[0];
+        const newLat = result.y;
+        const newLng = result.x;
+        setLat(newLat);  // 위도 업데이트
+        setLng(newLng);  // 경도 업데이트
+        const newCenter = new naver.maps.LatLng(newLat, newLng);
+        mapInstance.current.setCenter(newCenter);
+        mapInstance.current.setZoom(14);
+      });
+    }
+  }, [location]);
 
   return (
-    <div className='flex'>
-    <div className='rounded-3xl mt-3 w-[60%] h-[600px]'
-      ref={mapRef}
-      // style={{
-      //   width: '60%',
-      //   height: '600px',
-      // }}
-    />
-    <div className='bg-white bg-opacity-50 h-[600px] rounded-3xl mt-3 ml-3 p-3 w-[40%]'>어쩌구</div>
+    <div className='flex h-[77%]'>
+      <div className='rounded-3xl mt-3 w-[60%]' ref={mapRef} />
+      <div className='bg-white bg-opacity-50 rounded-3xl mt-3 ml-3 p-3 w-[40%]'>어쩌구</div>
     </div>
   );
 };

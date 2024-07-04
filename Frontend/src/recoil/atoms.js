@@ -42,26 +42,7 @@ export const isLoggedInState = atom({
   ],
 });
 
-export const alertState = atom({
-  key: 'alertState',
-  default: [],
-});
-
-export const alertCountState = atom({
-  key: 'alertCountState',
-  default: (() => {
-    const savedAlertCount = localStorage.getItem('alertCount');
-    return savedAlertCount !== null ? parseInt(savedAlertCount, 10) : 0;
-  })(),
-  effects: [
-    ({ onSet }) => {
-      onSet(newValue => {
-        localStorage.setItem('alertCount', newValue);
-      });
-    },
-  ],
-});
-export const alertLoadingState = atom({
-  key: 'alertLoadingState',
-  default: true,
+export const locationState = atom({
+  key: 'locationState', 
+  default: {eupmyeondong: '' }, 
 });
