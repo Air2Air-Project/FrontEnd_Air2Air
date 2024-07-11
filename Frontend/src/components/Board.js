@@ -8,7 +8,7 @@ export default function Board() {
   return (
     <>
      <div className="flex flex-col justify-center items-center"> 
-        <div className="relative -top-60 flex flex-col items-center bg-[#17444F] text-white p-10 rounded-lg mb-8"> {/* mb-8 추가 */}
+        <div className="relative -top-44 flex flex-col items-center bg-[#17444F] text-white p-10 rounded-lg mb-8"> {/* mb-8 추가 */}
           <div className="flex items-center space-x-2"> 
             <img src={Comment} alt="icon" className="h-16 w-16" />
             <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
