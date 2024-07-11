@@ -62,21 +62,18 @@ export default function Nav() {
 
         {isLoggedIn ? (
             <>
+              <Link to="/" className="flex justify-center items-center text-sm font-semibold leading-6 bg-transparent text-gray-900 p-1 px-2 mx-1 hover:text-shadow">
+                {user?.username}
+              </Link>
               <button onClick={handleLogout} className='text-sm font-semibold leading-6 text-gray-900 hover:text-shadow'>
                 Logout
               </button>
-              <Link to="/" className="flex justify-center items-center text-sm font-semibold leading-6 bg-transparent text-gray-900 rounded-3xl p-1 px-2 mx-1 hover:text-shadow">
-                {user?.username}
-              </Link>
             </>
           ) : (
             <Link to="/login" className='text-sm font-semibold leading-6 text-gray-900 hover:text-shadow'>
               Log in <span aria-hidden="true">&rarr;</span>
             </Link>
           )}
-              {/* <a href="/login" className="text-sm font-semibold leading-6 text-gray-900 hover:text-shadow">
-                Log in <span aria-hidden="true">&rarr;</span>
-              </a> */}
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -113,11 +110,20 @@ export default function Nav() {
                 ))}
               </div>
               <div className="py-6">
-                <Link to='/login'><div
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </div></Link>
+                {isLoggedIn ? (
+                <>
+                  <Link to="/" className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                    {user?.username}
+                  </Link>
+                  <button onClick={handleLogout} className='text-sm font-semibold leading-6 text-gray-900 hover:text-shadow'>
+                    Logout
+                  </button>
+                </>
+                ) : (
+                  <Link to="/login" className='-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'>
+                    Log in <span aria-hidden="true">&rarr;</span>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
