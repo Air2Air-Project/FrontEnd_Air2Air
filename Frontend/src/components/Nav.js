@@ -1,27 +1,44 @@
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { IoMdPerson } from "react-icons/io";
 import { Link } from 'react-router-dom'
 import './Nav.css';
+import { isLoggedInState, userState } from '../recoil/atoms';
 
 const navigation = [
   { name: 'Location', href: '/map' },
   { name: 'Comprehend', href: '#' },
-  { name: 'Realtime', href: '#' },
+  { name: 'Realtime', href: '/real' },
   { name: 'Pastdata', href: '#' },
   { name: 'Board', href: '/board' },
+  { name: 'Alert', href: '/alert' },
 ]
 
 export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const user = useRecoilValue(userState);
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const setUser = useSetRecoilState(userState);
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUser(null);
+    localStorage.removeItem('ACCESS_TOKEN');
+    localStorage.removeItem('USER');
+    localStorage.removeItem('username');
+    localStorage.removeItem('email');
+  };
 
   return (
     <header className="bg-white">
       <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <a href="/" className="-m-1.5 p-1.5">
+          <a href="/" className="-m-1.5 p-1">
             <span className="sr-only">Your Company</span>
-            <img className="h-[30px] w-[30px]" src="/images/pure-water.png" alt="" />
+            <img className="h-[40px] w-[40px]" src="/images/pollution.png" alt="" />
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -42,9 +59,24 @@ export default function Nav() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="/login" className="text-sm font-semibold leading-6 text-gray-900 hover:text-shadow">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+
+        {isLoggedIn ? (
+            <>
+              <button onClick={handleLogout} className='text-sm font-semibold leading-6 text-gray-900 hover:text-shadow'>
+                Logout
+              </button>
+              <Link to="/" className="flex justify-center items-center text-sm font-semibold leading-6 bg-transparent text-gray-900 rounded-3xl p-1 px-2 mx-1 hover:text-shadow">
+                {user?.username}
+              </Link>
+            </>
+          ) : (
+            <Link to="/login" className='text-sm font-semibold leading-6 text-gray-900 hover:text-shadow'>
+              Log in <span aria-hidden="true">&rarr;</span>
+            </Link>
+          )}
+              {/* <a href="/login" className="text-sm font-semibold leading-6 text-gray-900 hover:text-shadow">
+                Log in <span aria-hidden="true">&rarr;</span>
+              </a> */}
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>

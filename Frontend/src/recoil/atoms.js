@@ -41,8 +41,3 @@ export const isLoggedInState = atom({
     },
   ],
 });
-
-export const locationState = atom({
-  key: 'locationState', 
-  default: {eupmyeondong: '' }, 
-});

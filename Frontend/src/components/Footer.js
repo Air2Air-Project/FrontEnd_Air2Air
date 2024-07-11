@@ -4,7 +4,7 @@ const navigation = {
       { name: 'FrontEnd', href: 'https://github.com/Dr-Energy/FrontEnd_PowerForecast' },
       { name: 'BackEnd', href: 'https://github.com/Dr-Energy/Backend_PowerForecast' },
       { name: 'DataAnalysis', href: 'https://github.com/Dr-Energy/DA_PowerForecast' },
-      { name: 'Water2Water', href: 'https://github.com/Dr-Energy' }
+      { name: 'Air2Air', href: 'https://github.com/Dr-Energy' }
     ]
 }
 export default function Footer() {
@@ -22,7 +22,7 @@ export default function Footer() {
             ))}
           </nav>
           <p className="mt-5 text-center text-xs leading-5 text-black">
-            &copy; 2024 Water2Water. All rights reserved.
+            &copy; 2024 Air2Air. All rights reserved.
           </p>
         </div>
       </footer>

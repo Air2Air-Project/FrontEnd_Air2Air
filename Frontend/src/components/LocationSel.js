@@ -1,9 +1,7 @@
 import {useState, useEffect,Fragment } from 'react';
-import address from '../data/address.json'
+import addressData from '../data/station.json'
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import { useRecoilState } from 'recoil';
-import { locationState } from '../recoil/atoms';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -15,45 +13,47 @@ export default function LocationSel({ onChange = () => {} }) {
     const [selectedMedium, setSelectedMedium] = useState('');
     const [selectedSmall, setSelectedSmall] = useState('');
     const [smallCategories, setSmallCategories] = useState([]);
-    const [location, setLocation] = useRecoilState(locationState);
+    // const [location, setLocation] = useRecoilState(locationState);
 
     useEffect(() => {
-      let tm = address.map(item => item.sido);
+      let tm = addressData.map(item => item.large);
       tm = new Set(tm);
       tm = [...tm];
       setLargeCategories(tm);
     }, []);
-
+  
     const handleLargeChange = (value) => {
-      // setLocation({ sido: value, gugun: '', eupmyeondong: '' });
       setSelectedLarge(value);
-      const filteredMediums = address.filter(item => item.sido === value).map(item => item.gugun);
+      const filteredMediums = addressData.filter(item => item.large === value).map(item => item.middle);
       setMediumCategories([...new Set(filteredMediums)]);
-      setSelectedMedium('');
       setSmallCategories([]);
+      setSelectedMedium('');
       setSelectedSmall('');
+      // onChange('');
     };
-
+  
     const handleMediumChange = (value) => {
-      // setLocation(prev => ({ ...prev, gugun: value, eupmyeondong: '' }));
       setSelectedMedium(value);
-      const filteredSmalls = address.filter(item => item.sido === selectedLarge && item.gugun === value).map(item => item.eupmyeondong);
+      const filteredSmalls = addressData.filter(item => item.large === selectedLarge && item.middle === value).map(item => item.small);
       setSmallCategories([...new Set(filteredSmalls)]);
       setSelectedSmall('');
+      // onChange('');
     };
-
+  
     const handleSmallChange = (value) => {
-      // setLocation(prev => ({ ...prev, eupmyeondong: value }));
       setSelectedSmall(value);
-      const newLocation = { eupmyeondong: value };
-      console.log("newLocation:", newLocation);
-      onChange(newLocation);
-      setLocation(newLocation);
+      const newAddress = `${selectedLarge} ${selectedMedium} ${value}`;
+      // const newAddress = `${value}`;
+      const info = getInfo(value);
+      onChange(newAddress, info);
+    };
+    const getInfo = (value) => {
+      const station = addressData.find(item => item.small === value);
+      return station ? station.info : '';
     };
 
     return (
-      <>
-        <div className="flex w-full items-center min-w-[300px]">
+        <div className="flex w-full items-center min-w-[300px] justify-center">
           <div className="text-lg w-1/3">
             <Listbox value={selectedLarge} onChange={handleLargeChange}>
               {({ open }) => (
@@ -229,6 +229,6 @@ export default function LocationSel({ onChange = () => {} }) {
             </div>
           )}
         </div>
-      </>
+
     );
 }

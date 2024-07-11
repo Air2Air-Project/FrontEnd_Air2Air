@@ -9,22 +9,53 @@ const LoginForm = () => {
   const setUser = useSetRecoilState(userState);
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const [formData, setFormData] = useState({
-    memberId: '',
+    email: '',
     password: ''
   });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://10.125.121.224:8080/login', formData);
+      console.log('Login successful:', response.data.username);
+      localStorage.setItem('ACCESS_TOKEN', response.headers['authorization']);
+      localStorage.setItem('username', response.data.username);
+      localStorage.setItem('email', response.data.email);
+
+      setUser(response.data);
+      // console.log('loginform.js:',response.data.regionId);
+      // setUserLocation(response.data.regionId);
+      setIsLoggedIn(true);
+
+      navigate("/");
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('아이디와 비밀번호가 다릅니다.');
+      setFormData({
+        email: '',
+        password: ''
+      });
+    }
+  };
 
   return (
     <div className='flex justify-center items-center'>
     <form 
-    // onSubmit={handleSubmit} 
+    onSubmit={handleSubmit} 
     className="bg-white bg-opacity-50 p-10 rounded-2xl shadow-black shadow-md w-full max-w-sm">
       <input
         type="text"
-        name="memberId"
+        name="email"
         placeholder="ID"
-        value={formData.memberId}
-        // onChange={handleChange}
+        value={formData.email}
+        onChange={handleChange}
         className="w-full p-2 mb-4 border border-gray-300 rounded bg-white bg-opacity-50 mt-7"
       />
       <input
@@ -32,7 +63,7 @@ const LoginForm = () => {
         name="password"
         placeholder="Password"
         value={formData.password}
-        // onChange={handleChange}
+        onChange={handleChange}
         className="w-full p-2 mb-6 border border-gray-300 rounded bg-white bg-opacity-50"
       />
       <button type="submit" className="w-full bg-[#1F3230] bg-opacity-50 text-white p-2 rounded hover:bg-gray-500">

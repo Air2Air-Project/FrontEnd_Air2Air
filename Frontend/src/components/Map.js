@@ -1,69 +1,106 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { locationState } from '../recoil/atoms';
 
-const Map = () => {
-  const mapRef = useRef(null);
-  const location = useRecoilValue(locationState);
-  const mapInstance = useRef(null);
-  const [lat, setLat] = useState(37.54);  // 초기 위도
-  const [lng, setLng] = useState(126.99); // 초기 경도
+const Map = ({ address, info }) => {
+  const mapElement = useRef(null);
+  const markerRef = useRef(null);
+  const [map, setMap] = useState(null);
+  const [naverMapsLoaded, setNaverMapsLoaded] = useState(false);
 
   useEffect(() => {
-    const initializeMap = () => {
-      const { naver } = window;
+    const loadNaverMapsScript = () => {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.REACT_APP_NAVER_MAP_API_KEY}&submodules=geocoder`;
+        script.async = true;
+        script.onload = () => resolve(window.naver);
+        script.onerror = reject;
+        document.head.appendChild(script);
+        
+        if (window.naver && window.naver.maps) {
+          setNaverMapsLoaded(true);
+          resolve(window.naver);
+          console.log("method");
+          return;
+        }
+      });
+    };
 
-      if (naver && naver.maps) {
-        mapInstance.current = new naver.maps.Map(mapRef.current, {
-          center: new naver.maps.LatLng(lat, lng),
-          zoom: 10,
-        });
+    const initializeMap = async () => {
+      try {
+        const naver = await loadNaverMapsScript();
+        if (!mapElement.current || !naver) return;
+
+        const mapOptions = {
+          center: new naver.maps.LatLng(37.54, 126.99), // 초기 위치 설정
+          zoom: 15,
+          zoomControl: true,
+        };
+
+        const newMap = new naver.maps.Map(mapElement.current, mapOptions);
+        setMap(newMap);
+      } catch (error) {
+        console.error("Naver 지도 API 스크립트 로드 오류:", error);
       }
     };
 
-    const loadScript = () => {
-      const script = document.createElement('script');
-      script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gqjaav5eki&submodules=geocoder';
-      script.async = true;
-      script.onload = initializeMap;
-      document.head.appendChild(script);
-    };
-
-    if (window.naver && window.naver.maps) {
-      initializeMap();
-    } else {
-      loadScript();
-    }
-  }, [lat, lng]);  // 초기 위도와 경도를 의존성 배열에 추가
+    initializeMap();
+  }, []);
 
   useEffect(() => {
+    console.log("address:",address);
+    if (!naverMapsLoaded || !map || !address) return;
+    
     const { naver } = window;
-    if (location.eupmyeondong) {
-      const address = `${location.eupmyeondong}`;
-      console.log("address:", address);
+    naver.maps.Service.geocode({ query: address }, (status, response) => {
+      if (status === naver.maps.Service.Status.OK && response.v2.addresses.length > 0) {
+        const { x, y } = response.v2.addresses[0];
+        const newLocation = new naver.maps.LatLng(y, x);
 
-      naver.maps.Service.geocode({ query: address }, function(status, response) {
-        if (status !== naver.maps.Service.Status.OK) {
-          return alert('Something wrong!');
+        map.setCenter(newLocation);
+        map.setZoom(17);
+
+        if (!markerRef.current) {
+          markerRef.current = new naver.maps.Marker({
+            position: newLocation,
+            map,
+          });
+        } else {
+          markerRef.current.setPosition(newLocation);
         }
-        const result = response.v2.addresses[0];
-        const newLat = result.y;
-        const newLng = result.x;
-        setLat(newLat);  // 위도 업데이트
-        setLng(newLng);  // 경도 업데이트
-        const newCenter = new naver.maps.LatLng(newLat, newLng);
-        mapInstance.current.setCenter(newCenter);
-        mapInstance.current.setZoom(14);
-      });
-    }
-  }, [location]);
+
+        showInfoWindow(map, markerRef.current, info, address);
+      } else {
+        console.error(`주소 지오코딩에 실패했습니다: ${address}`);
+      }
+    });
+  }, [naverMapsLoaded, address, map]);
+
+  const showInfoWindow = (map, marker, info) => {
+    const infoWindowContent = `
+      <div class="p-4 shadow-lg">
+        <div class="font-bold" style="color: #1B525F;">${info}</div>
+      </div>
+    `;
+    const infoWindow = new window.naver.maps.InfoWindow({
+      content: infoWindowContent,
+      maxWidth: 300,
+      anchorSize: {
+        width: 12,
+        height: 14,
+      },
+      borderColor: "#cecdc7",
+    });
+  
+    infoWindow.open(map, marker);
+  };
 
   return (
-    <div className='flex h-[77%]'>
-      <div className='rounded-3xl mt-3 w-[60%]' ref={mapRef} />
-      <div className='bg-white bg-opacity-50 rounded-3xl mt-3 ml-3 p-3 w-[40%]'>어쩌구</div>
+    <div className='flex h-[77%] justify-center'>
+      <div ref={mapElement} className='rounded-3xl mt-3 w-[90%]' />
+      {/* <div className='bg-white bg-opacity-50 rounded-3xl mt-3 ml-3 p-3 w-[40%]'>어쩌구</div> */}
     </div>
-  );
+  ); 
 };
 
 export default Map;
+
