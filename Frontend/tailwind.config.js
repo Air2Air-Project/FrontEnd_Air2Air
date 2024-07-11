@@ -7,10 +7,6 @@ module.exports = {
         custom: ['MaruBuri', 'sans-serif'],
       },
     },
-    height: {
-      cth: '600px',
-      cth2: '560px'
-     }
   },
   plugins: [],
 }

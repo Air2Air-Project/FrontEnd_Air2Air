@@ -58,3 +58,6 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   -webkit-text-fill-color: black !important; /* 기본 글자색 유지 */
 }
+p {
+  white-space: pre-line;
+}

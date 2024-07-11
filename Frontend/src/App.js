@@ -10,6 +10,7 @@ import FindPw_Page from './Pages/FindPw_Page.js';
 import Register_Page from './Pages/Register_Page.js';
 import BoardList_Page from './Pages/BoardList_Page.js'
 import Inquiry_Page from './Pages/Inquiry_Page.js'; 
+import QuestionDetail_Page from './Pages/QuestionDetail_Page.js';
 
 // import { isLoggedInState } from './recoil/atoms';
 // import { useRecoilValue } from 'recoil';
@@ -36,6 +37,7 @@ function App() {
           <Route path="/register" element={<Register_Page />} />
           <Route path="/boardlist" element={<BoardList_Page />} />
           <Route path="/inquiry" element={<Inquiry_Page />} />
+          <Route path="/question/detail/:seq" element={<QuestionDetail_Page />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
