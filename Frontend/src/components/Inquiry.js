@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import Consultant from '../img/operator.png';
 import Comment from '../img/speech-bubble.png';
@@ -39,14 +39,21 @@ export default function Inquiry() {
     }
   };
 
+  useEffect(() => {
+    const icons = document.querySelectorAll('.icon');
+    icons.forEach(icon => {
+      icon.classList.add('animate-scale-up');
+    });
+  }, []);
+
   return (
     <>
       <div className="h- justify-center items-center"> 
         <div className="relative flex flex-col items-center bg-[#17444F] text-white p-10 rounded-lg mb-8">
           <div className="flex items-center space-x-2"> 
-            <img src={Comment} alt="icon" className="h-16 w-16" />
+            <img src={Comment} alt="icon" className="h-16 w-16 icon" />
             <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
-            <img src={Consultant} alt="icon" className="h-16 w-16" />
+            <img src={Consultant} alt="icon" className="h-16 w-16 icon" />
           </div>
           <p className="mt-2 text-lg">1:1 문의</p>
         </div>

@@ -32,24 +32,25 @@ export default function QuestionDetail() {
     fetchQuestionDetail();
   }, [seq]);
   
-  useEffect(()=>{
-    console.log(questionDetail)
-  },[questionDetail])
-
   if (!questionDetail) {
     return <div>로딩 중...</div>;
   }
   
-
+  // useEffect(() => {
+  //   const icons = document.querySelectorAll('.icon');
+  //   icons.forEach(icon => {
+  //     icon.classList.add('animate-scale-up');
+  //   });
+  // }, []);
 
   return (
     <>
     <div className="h- justify-center items-center"> 
         <div className="relative flex flex-col items-center bg-[#17444F] text-white p-10 rounded-lg mb-8">
           <div className="flex items-center space-x-2"> 
-            <img src={Comment} alt="icon" className="h-16 w-16 " />
+            <img src={Comment} alt="icon" className="h-16 w-16 icon" />
             <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
-            <img src={Consultant} alt="icon" className="h-16 w-16" />
+            <img src={Consultant} alt="icon" className="h-16 w-16 icon" />
           </div>
           <p className="mt-2 text-lg">1:1 문의</p>
         </div>

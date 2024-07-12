@@ -2,7 +2,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { IoMdPerson } from "react-icons/io";
+// import { IoMdPerson } from "react-icons/io";
 import { Link } from 'react-router-dom'
 import './Nav.css';
 import { isLoggedInState, userState } from '../recoil/atoms';
@@ -83,7 +83,7 @@ export default function Nav() {
             <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
-                className="h-[30px] w-[30px]" src="/images/pure-water.png"
+                className="h-[30px] w-[30px]" src="/images/pollution.png"
                 alt=""
               />
             </a>
