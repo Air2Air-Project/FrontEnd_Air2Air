@@ -66,40 +66,38 @@ export default function MyPage() {
   }
 
   return (
-    <div className='bg-white bg-opacity-50 p-10 rounded-lg shadow-lg w-full max-w-2xl mt-8 flow-root'>
-
-
-            <table className="min-w-full divide-y divide-gray-300">
-              <tbody className="divide-y divide-gray-200">
+    <div className='bg-white bg-opacity-80 p-10 rounded-2xl shadow-lg w-full max-w-2xl mt-8 flow-root'>
+            <table className="min-w-full divide-y divide-gray-700">
+              <tbody className="divide-y divide-gray-700">
                 <tr>
-                  <th className="text-left px-4 py-2 text-white">이름</th>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
-                    {user.nickname}
+                  <th className="text-left px-4 py-2 text-black text-lg">이름</th>
+                  <td className="whitespace-nowrap px-3 py-4 text-lg text-gray-700">
+                    {user.username}
                   </td>
                 </tr>
                 <tr>
-                  <th className="text-left px-4 py-2 text-white">아이디</th>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{user.memberId}</td>
+                  <th className="text-left px-4 py-2 text-black text-lg">이메일</th>
+                  <td className="whitespace-nowrap px-3 py-4 text-lg text-gray-700">{user.email}</td>
                 </tr>
                 <tr>
-                  <th className="text-left px-4 py-2 text-white">전화번호</th>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{user.phoneNumber}</td>
+                  <th className="text-left px-4 py-2 text-black text-lg">전화번호</th>
+                  <td className="whitespace-nowrap px-3 py-4 text-lg text-gray-700">{user.phoneNumber}</td>
                 </tr>
                 <tr>
-                  <th className="text-left px-4 py-2 text-white">주소</th>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
-                    {user.region && `${user.region.sido} ${user.region.gugun} ${user.region.eupmyeondong}`}
+                  <th className="text-left px-4 py-2 text-black text-lg">관측소 주소</th>
+                  <td className="whitespace-nowrap px-3 py-4 text-lg text-gray-700">
+                    {user.region && `${user.region.large} ${user.region.middle} ${user.region.small}`}
                   </td>
                 </tr>
               </tbody>
             </table>
-            <div className='flex justify-end items-center'>
-              <Link to="/mypageEdit" className="text-[#153c27] hover:text-white border border-[#153c27] hover:bg-[#153c27] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+            <div className='flex justify-end items-center pt-7'>
+              <Link to="/mypageEdit" className="text-[#153c27] hover:text-white border border-[#153c27] hover:bg-[#153c27] focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2">
                 수정하기
               </Link>
               <button
                 onClick={handleDeleteProfile}
-                className="text-[#153c27] hover:text-white border border-[#153c27] hover:bg-[#153c27] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                className="text-[#153c27] hover:text-white border border-[#153c27] hover:bg-[#153c27] focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-lg px-5 py-2.5 text-center me-2 mb-2"
               >
                 탈퇴하기
               </button>
