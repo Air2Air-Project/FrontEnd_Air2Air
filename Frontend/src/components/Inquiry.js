@@ -3,14 +3,19 @@ import axios from 'axios';
 import Consultant from '../img/operator.png';
 import Comment from '../img/speech-bubble.png';
 import { Link, useNavigate } from 'react-router-dom';
+import {useRecoilValue} from 'recoil';
+import {userState} from '../recoil/atoms'
 
 export default function Inquiry() {
+
+  const user = useRecoilValue(userState); //Recoil 상태에서 사용자 정보 가져옴
+
   const [formData, setFormData] = useState({
     questionType: '',
     title: '',
     content: '',
     member: {
-      memberId: '1'
+      memberId: user.memberId
     }
   });
   const navigate = useNavigate();

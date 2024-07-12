@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import {useRecoilValue} from 'recoil';
+import {userState} from '../recoil/atoms'
 import Consultant from '../img/operator.png';
 import Comment from '../img/speech-bubble.png';
 
@@ -9,6 +11,7 @@ export default function QuestionDetail() {
   const [questionDetail, setQuestionDetail] = useState(null);
   const navigate = useNavigate(); // 리디렉션을 위해 useNavigate 훅 사용
   const [isDeleted, setIsDeleted] = useState(false);
+  const user = useRecoilValue(userState); //Recoil 상태에서 사용자 정보 가져옴
 
   // 날짜 포맷팅 함수
   const formatDate = (dateString) => {
@@ -20,15 +23,15 @@ export default function QuestionDetail() {
   };
 
   const handleDelete = () => {
-    console.log('삭제 버튼 클릭됨');
+    //삭제 요청 처리 함수
     try {
-      const response = axios.delete(`http://10.125.121.224:8080/question/delete?questionId=${seq}&memberId=1`);
-      // await axios.delete(`http://10.125.121.224:8080/question/delete`,{
-      //   params: {
-      //     questionId: seq, 
-      //     memberId: 1 
-      //   }
-      // });
+      const response = 
+       axios.delete(`http://10.125.121.224:8080/question/delete`,{
+        params: {
+          questionId: seq, 
+          memberId: user.memberId // Recoil 상태에서 가져온 사용자 ID 사용
+        }
+      });
       console.log('삭제 요청 응답:', response);
       alert('삭제 성공'); 
       setIsDeleted(true);
@@ -38,6 +41,7 @@ export default function QuestionDetail() {
       alert('삭제 실패');
     }
   };
+
   useEffect(() => {
     // 질문 상세 정보를 가져오는 함수
     if (isDeleted) return; 
