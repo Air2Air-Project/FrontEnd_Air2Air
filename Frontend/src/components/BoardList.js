@@ -83,8 +83,8 @@ export default function BoardList() {
   }, []);
 
   return (
-    <section className="section02 board_list_section flex flex-col justify-center items-center h-[77%] w-[70%]">
-      <div className="relative -top-10 flex flex-col items-center bg-[#17444F] text-white p-10 rounded-lg mb-8">
+    <section className="section02 board_list_section flex flex-col justify-center items-center favicon">
+      <div className="relative top-0 sm:-top-32 md:-top-44 lg:-top-14  flex flex-col items-center bg-[#17444F] text-white p-10 rounded-lg mb-8">
         <div className="flex items-center space-x-2">
           <img src={Comment} alt="icon" className="h-16 w-16 icon" />
           <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
@@ -93,7 +93,7 @@ export default function BoardList() {
         <p className="mt-2 text-lg">1:1 문의</p>
       </div>
 
-      <div className="container mx-auto px-4 h- py-4 bg-[#b3dcde] rounded-lg shadow-md mb-8">
+      <div className="relative top-0 sm:-top-8 md:-top-36 lg:-top-8 container mx-auto px-4 h- py-4 bg-[#b3dcde] rounded-lg shadow-md mb-8">
         <div className="flex space-x-4">
           <select
             className="w-full p-2 border rounded text-black custom-select"
@@ -101,10 +101,10 @@ export default function BoardList() {
             onChange={(e) => setQuestionType(e.target.value)}
           >
             <option value="문의유형">문의유형</option>
-            <option value="관측소">관측소</option>
-            <option value="미세먼지">미세먼지</option>
-            <option value="알람">알람</option>
-            <option value="기타">기타</option>
+            <option value="STATION">관측소</option>
+            <option value="DUST">미세먼지</option>
+            <option value="ALERT">알람</option>
+            <option value="ETC">기타</option>
           </select>
 
           <select
@@ -130,7 +130,7 @@ export default function BoardList() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-4 bg-white rounded-lg shadow-md">
+      <div className="relative top-0 sm:-top-8 md:-top-36 lg:-top-8 container mx-auto px-4 py-4 bg-white rounded-lg shadow-md">
         <h2 className="text-left text-xl font-bold text-black mb-4 border-b border-black pb-2">
           <span className="text-red-500">{questions.length}</span>개의 질문이 검색되었습니다.
         </h2>
