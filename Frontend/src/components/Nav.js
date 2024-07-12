@@ -8,12 +8,11 @@ import './Nav.css';
 import { isLoggedInState, userState } from '../recoil/atoms';
 
 const navigation = [
-  { name: 'Location', href: '/map' },
-  { name: 'Comprehend', href: '#' },
   { name: 'Realtime', href: '/real' },
-  { name: 'Pastdata', href: '#' },
-  { name: 'Board', href: '/board' },
+  { name: 'Forecast', href: '/forecast' },
   { name: 'Alert', href: '/alert' },
+  { name: 'Location', href: '/map' },
+  { name: 'Board', href: '/board' },
 ]
 
 export default function Nav() {

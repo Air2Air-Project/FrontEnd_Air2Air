@@ -12,6 +12,8 @@ import BoardList_Page from './Pages/BoardList_Page.js'
 import Inquiry_Page from './Pages/Inquiry_Page.js'; 
 import Real_Page from './Pages/Real_Page.js';
 import QuestionDetail_Page from './Pages/QuestionDetail_Page.js';
+import Forecast_Page from './Pages/Forecast_Page.js';
+import Alert_Page from './Pages/Alert_Page.js';
 
 // import { isLoggedInState } from './recoil/atoms';
 // import { useRecoilValue } from 'recoil';
@@ -40,6 +42,8 @@ function App() {
           <Route path="/inquiry" element={<Inquiry_Page />} />
           <Route path="/real" element={<Real_Page />} />
           <Route path="/question/detail/:seq" element={<QuestionDetail_Page />} />
+          <Route path="/forecast" element={<Forecast_Page />} />
+          <Route path="/alert" element={<Alert_Page />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
