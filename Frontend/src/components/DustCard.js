@@ -27,13 +27,13 @@ const DustCard = ({ title, value, grade, location, unit }) => {
   };
   const renderGrade = () => {
     switch (grade) {
-      case 1:
+      case "1":
         return <span className="text-green-700">좋음</span>;
-      case 2:
+      case "2":
         return <span className="text-blue-700">보통</span>;
-      case 3:
+      case "3":
         return <span className="text-yellow-600">나쁨</span>;
-      case 4:
+      case "4":
         return <span className="text-red-700">매우나쁨</span>;
       default:
         return <span className="text-gray-700">알 수 없음</span>;

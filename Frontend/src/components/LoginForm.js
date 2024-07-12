@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { userState, isLoggedInState } from '../recoil/atoms';
+import { userState, isLoggedInState, userLocationState } from '../recoil/atoms';
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const setUser = useSetRecoilState(userState);
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const setUserLocation = useSetRecoilState(userLocationState);
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -28,10 +29,10 @@ const LoginForm = () => {
       localStorage.setItem('ACCESS_TOKEN', response.headers['authorization']);
       localStorage.setItem('username', response.data.username);
       localStorage.setItem('email', response.data.email);
-
+      console.log("userData:", response.data);
       setUser(response.data);
-      // console.log('loginform.js:',response.data.regionId);
-      // setUserLocation(response.data.regionId);
+      setUserLocation(response.data.stationName);
+      console.log("stationName:",response.data.stationName);
       setIsLoggedIn(true);
 
       navigate("/");

@@ -2,6 +2,8 @@ import {useState, useEffect,Fragment } from 'react';
 import addressData from '../data/station.json'
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { useRecoilState } from 'recoil';
+import { userLocationState } from '../recoil/atoms';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -42,10 +44,11 @@ export default function LocationSel({ onChange = () => {} }) {
   
     const handleSmallChange = (value) => {
       setSelectedSmall(value);
-      const newAddress = `${selectedLarge} ${selectedMedium} ${value}`;
+      const newAddress = { large: selectedLarge, middle: selectedMedium, small: value };
+      const geoAddress = `${selectedLarge} ${selectedMedium} ${value}`;
       // const newAddress = `${value}`;
       const info = getInfo(value);
-      onChange(newAddress, info);
+      onChange(geoAddress, newAddress, info);
     };
     const getInfo = (value) => {
       const station = addressData.find(item => item.small === value);

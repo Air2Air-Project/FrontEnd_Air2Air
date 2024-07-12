@@ -7,7 +7,7 @@ export default function Register_Page() {
   return (
     <>
     <Nav/>
-    <div className="bg-[#17444F] text-white text-center rounded-t-3xl p-3 h-[83vh] flex justify-center items-center">
+    <div className="bg-[url('./components/background/background.png')] text-white font-semibold rounded-t-3xl p-3 h-[83vh] flex justify-center items-center">
       <Register/>
     </div>
     <Footer/>

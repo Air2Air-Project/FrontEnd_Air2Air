@@ -8,6 +8,7 @@ export default function QuestionDetail() {
   const { seq } = useParams(); // URL에서 seq 파라미터를 가져옴
   const [questionDetail, setQuestionDetail] = useState(null);
   const navigate = useNavigate(); // 리디렉션을 위해 useNavigate 훅 사용
+  const [isDeleted, setIsDeleted] = useState(false);
 
   // 날짜 포맷팅 함수
   const formatDate = (dateString) => {
@@ -18,8 +19,29 @@ export default function QuestionDetail() {
     return `${year}-${month}-${day}`;
   };
 
+  const handleDelete = () => {
+    console.log('삭제 버튼 클릭됨');
+    try {
+      const response = axios.delete(`http://10.125.121.224:8080/question/delete?questionId=${seq}&memberId=1`);
+      // await axios.delete(`http://10.125.121.224:8080/question/delete`,{
+      //   params: {
+      //     questionId: seq, 
+      //     memberId: 1 
+      //   }
+      // });
+      console.log('삭제 요청 응답:', response);
+      alert('삭제 성공'); 
+      setIsDeleted(true);
+      navigate('/boardlist');
+    } catch (error) {
+      console.error('삭제 중 오류 발생: ', error);
+      alert('삭제 실패');
+    }
+  };
   useEffect(() => {
     // 질문 상세 정보를 가져오는 함수
+    if (isDeleted) return; 
+
     const fetchQuestionDetail = async () => {
       try {
         const response = await axios.get(`http://10.125.121.224:8080/question/detail/${seq}`);
@@ -30,7 +52,7 @@ export default function QuestionDetail() {
     };
 
     fetchQuestionDetail();
-  }, [seq]);
+  }, [seq, isDeleted]);
 
   useEffect(() => {
     const icons = document.querySelectorAll('.icon');
@@ -40,23 +62,6 @@ export default function QuestionDetail() {
   }, []);
 
   // 삭제 요청을 처리하는 함수
-  const handleDelete = async () => {
-    try {
-      const response =
-      await axios.delete(`http://10.125.121.224:8080/question/delete`,{
-        params: {
-          questionId: seq, 
-          memberId: 1 
-        }
-      });
-      console.log('삭제 요청 응답:', response);
-      alert('삭제 성공'); 
-      navigate('/');
-    } catch (error) {
-      console.error('삭제 중 오류 발생: ', error);
-      alert('삭제 실패');
-    }
-  };
 
   if (!questionDetail) {
     return <div>로딩 중...</div>;
