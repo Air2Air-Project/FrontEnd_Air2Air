@@ -2,7 +2,8 @@ import { atom } from 'recoil';
 
 export const userState = atom({
   key: 'userState',
-  default: JSON.parse(localStorage.getItem('USER')) || null, // 새로고침 시 로컬 스토리지에서 사용자 정보 가져오기
+  default: JSON.parse(localStorage.getItem('USER')) || { memberId: '' }, // 로컬 스토리지에서 사용자 정보 가져오기
+  // default: JSON.parse(localStorage.getItem('USER')) || null, // 새로고침 시 로컬 스토리지에서 사용자 정보 가져오기
   effects_UNSTABLE: [
     ({ onSet }) => { //atom의 상태가 변경될 때 로컬 스토리지에 해당값을 동기화
       onSet(newValue => { //변경될 때 호출된다.

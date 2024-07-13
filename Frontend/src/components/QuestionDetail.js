@@ -7,11 +7,16 @@ import Consultant from '../img/operator.png';
 import Comment from '../img/speech-bubble.png';
 
 export default function QuestionDetail() {
-  const { seq } = useParams(); // URL에서 seq 파라미터를 가져옴
+  const { seq } = useParams();
   const [questionDetail, setQuestionDetail] = useState(null);
-  const navigate = useNavigate(); // 리디렉션을 위해 useNavigate 훅 사용
+  const navigate = useNavigate();
   const [isDeleted, setIsDeleted] = useState(false);
   const user = useRecoilValue(userState); // Recoil 상태에서 사용자 정보 가져옴
+
+  // 로컬 스토리지에서 가져온 memberId 확인
+  useEffect(() => {
+    console.log('user.memberId:', user.memberId);
+  }, [user.memberId]);
 
   // 날짜 포맷팅 함수
   const formatDate = (dateString) => {
@@ -22,13 +27,41 @@ export default function QuestionDetail() {
     return `${year}-${month}-${day}`;
   };
 
+  // 질문 상세 정보를 가져오는 함수
+  const fetchQuestionDetail = async () => {
+    try {
+      const response = await axios.get(`http://10.125.121.224:8080/question/detail/${seq}`);
+      const data = response.data;
+      console.log('응답 데이터:', data); // 전체 응답 데이터를 확인
+      if (!data.member) {
+        data.member = {}; // member 속성이 없을 경우 빈 객체로 초기화
+      }
+      setQuestionDetail(data);
+      console.log('questionDetail.member.memberId:', data.member.memberId); // 값 확인
+    } catch (error) {
+      console.error('질문 상세 정보를 불러오는데 오류 발생: ', error);
+    }
+  };
+
+  useEffect(() => {
+    if (!isDeleted) {
+      fetchQuestionDetail();
+    }
+  }, [seq, isDeleted]);
+
+  useEffect(() => {
+    const icons = document.querySelectorAll('.icon');
+    icons.forEach((icon) => {
+      icon.classList.add('animate-scale-up');
+    });
+  }, []);
+
   const handleDelete = async () => {
-    // 삭제 요청 처리 함수
     try {
       const response = await axios.delete('http://10.125.121.224:8080/question/delete', {
         params: {
           questionId: seq,
-          memberId: user.memberId, // Recoil 상태에서 가져온 사용자 ID 사용
+          memberId: user.memberId,
         },
       });
       console.log('삭제 요청 응답:', response);
@@ -40,33 +73,6 @@ export default function QuestionDetail() {
       alert('삭제 실패');
     }
   };
-
-  useEffect(() => {
-    // 질문 상세 정보를 가져오는 함수
-    if (isDeleted) return;
-
-    const fetchQuestionDetail = async () => {
-      try {
-        const response = await axios.get(`http://10.125.121.224:8080/question/detail/${seq}`);
-        const data = response.data;
-        if (!data.member) {
-          data.member = {}; // member 속성이 없을 경우 빈 객체로 초기화
-        }
-        setQuestionDetail(data);
-      } catch (error) {
-        console.error('질문 상세 정보를 불러오는데 오류 발생: ', error);
-      }
-    };
-
-    fetchQuestionDetail();
-  }, [seq, isDeleted]);
-
-  useEffect(() => {
-    const icons = document.querySelectorAll('.icon');
-    icons.forEach((icon) => {
-      icon.classList.add('animate-scale-up');
-    });
-  }, []);
 
   if (!questionDetail) {
     return <div>로딩 중...</div>;
@@ -113,14 +119,14 @@ export default function QuestionDetail() {
 
           <div className="flex justify-between mt-8">
             <div className="flex space-x-4">
-              {/* {questionDetail.member.memberId && user.memberId === questionDetail.member.memberId && ( */}
+              {questionDetail.member && user.memberId === questionDetail.member.memberId && (
                 <>
                   <Link to={`/modify/${seq}`} state={questionDetail}>
                     <button className="bg-gray-200 text-black py-2 px-4 rounded shadow">수정</button>
                   </Link>
                   <button onClick={handleDelete} className="bg-gray-200 text-black py-2 px-4 rounded shadow">삭제</button>
                 </>
-              {/* )} */}
+              )}
             </div>
             <Link to="/boardlist">
               <button className="bg-[#17444F] text-white py-2 px-4 rounded shadow">목록</button>
