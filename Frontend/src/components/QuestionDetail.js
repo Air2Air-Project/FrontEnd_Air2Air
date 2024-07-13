@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import {useRecoilValue} from 'recoil';
-import {userState} from '../recoil/atoms'
+import { useRecoilValue } from 'recoil';
+import { userState } from '../recoil/atoms';
 import Consultant from '../img/operator.png';
 import Comment from '../img/speech-bubble.png';
 
@@ -11,7 +11,7 @@ export default function QuestionDetail() {
   const [questionDetail, setQuestionDetail] = useState(null);
   const navigate = useNavigate(); // 리디렉션을 위해 useNavigate 훅 사용
   const [isDeleted, setIsDeleted] = useState(false);
-  const user = useRecoilValue(userState); //Recoil 상태에서 사용자 정보 가져옴
+  const user = useRecoilValue(userState); // Recoil 상태에서 사용자 정보 가져옴
 
   // 날짜 포맷팅 함수
   const formatDate = (dateString) => {
@@ -22,18 +22,17 @@ export default function QuestionDetail() {
     return `${year}-${month}-${day}`;
   };
 
-  const handleDelete = () => {
-    //삭제 요청 처리 함수
+  const handleDelete = async () => {
+    // 삭제 요청 처리 함수
     try {
-      const response = 
-       axios.delete(`http://10.125.121.224:8080/question/delete`,{
+      const response = await axios.delete('http://10.125.121.224:8080/question/delete', {
         params: {
-          questionId: seq, 
-          memberId: user.memberId // Recoil 상태에서 가져온 사용자 ID 사용
-        }
+          questionId: seq,
+          memberId: user.memberId, // Recoil 상태에서 가져온 사용자 ID 사용
+        },
       });
       console.log('삭제 요청 응답:', response);
-      alert('삭제 성공'); 
+      alert('삭제 성공');
       setIsDeleted(true);
       navigate('/boardlist');
     } catch (error) {
@@ -44,12 +43,16 @@ export default function QuestionDetail() {
 
   useEffect(() => {
     // 질문 상세 정보를 가져오는 함수
-    if (isDeleted) return; 
+    if (isDeleted) return;
 
     const fetchQuestionDetail = async () => {
       try {
         const response = await axios.get(`http://10.125.121.224:8080/question/detail/${seq}`);
-        setQuestionDetail(response.data);
+        const data = response.data;
+        if (!data.member) {
+          data.member = {}; // member 속성이 없을 경우 빈 객체로 초기화
+        }
+        setQuestionDetail(data);
       } catch (error) {
         console.error('질문 상세 정보를 불러오는데 오류 발생: ', error);
       }
@@ -60,12 +63,10 @@ export default function QuestionDetail() {
 
   useEffect(() => {
     const icons = document.querySelectorAll('.icon');
-    icons.forEach(icon => {
+    icons.forEach((icon) => {
       icon.classList.add('animate-scale-up');
     });
   }, []);
-
-  // 삭제 요청을 처리하는 함수
 
   if (!questionDetail) {
     return <div>로딩 중...</div>;
@@ -73,9 +74,9 @@ export default function QuestionDetail() {
 
   return (
     <>
-      <div className="h- justify-center items-center"> 
+      <div className="h- justify-center items-center">
         <div className="relative sm:-top-0 md:-top-0 lg:-top-10 flex flex-col items-center bg-[#17444F] text-white p-10 rounded-lg mb-8">
-          <div className="flex items-center space-x-2"> 
+          <div className="flex items-center space-x-2">
             <img src={Comment} alt="icon" className="h-16 w-16 icon" />
             <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
             <img src={Consultant} alt="icon" className="h-16 w-16 icon" />
@@ -112,10 +113,14 @@ export default function QuestionDetail() {
 
           <div className="flex justify-between mt-8">
             <div className="flex space-x-4">
-              <Link to="/inquiry">
-                <button className="bg-gray-200 text-black py-2 px-4 rounded shadow">수정</button>
-              </Link>
-              <button onClick={handleDelete} className="bg-gray-200 text-black py-2 px-4 rounded shadow">삭제</button>
+              {/* {questionDetail.member.memberId && user.memberId === questionDetail.member.memberId && ( */}
+                <>
+                  <Link to={`/modify/${seq}`} state={questionDetail}>
+                    <button className="bg-gray-200 text-black py-2 px-4 rounded shadow">수정</button>
+                  </Link>
+                  <button onClick={handleDelete} className="bg-gray-200 text-black py-2 px-4 rounded shadow">삭제</button>
+                </>
+              {/* )} */}
             </div>
             <Link to="/boardlist">
               <button className="bg-[#17444F] text-white py-2 px-4 rounded shadow">목록</button>

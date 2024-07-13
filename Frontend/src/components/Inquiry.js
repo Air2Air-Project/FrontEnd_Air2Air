@@ -3,21 +3,21 @@ import axios from 'axios';
 import Consultant from '../img/operator.png';
 import Comment from '../img/speech-bubble.png';
 import { Link, useNavigate } from 'react-router-dom';
-import {useRecoilValue} from 'recoil';
-import {userState} from '../recoil/atoms'
+import { useRecoilValue } from 'recoil';
+import { userState } from '../recoil/atoms';
 
 export default function Inquiry() {
-
-  const user = useRecoilValue(userState); //Recoil 상태에서 사용자 정보 가져옴
+  const user = useRecoilValue(userState); // Recoil 상태에서 사용자 정보 가져옴
 
   const [formData, setFormData] = useState({
-    questionType: '',
+    questionType: '', // 초기값을 빈 문자열로 설정
     title: '',
     content: '',
     member: {
-      memberId: user.memberId
-    }
+      memberId: user.memberId,
+    },
   });
+
   const navigate = useNavigate();
 
   // form 데이터 변경 핸들러
@@ -26,7 +26,7 @@ export default function Inquiry() {
 
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -55,7 +55,7 @@ export default function Inquiry() {
 
   useEffect(() => {
     const icons = document.querySelectorAll('.icon');
-    icons.forEach(icon => {
+    icons.forEach((icon) => {
       icon.classList.add('animate-scale-up');
     });
   }, []);
@@ -72,14 +72,18 @@ export default function Inquiry() {
           <p className="mt-2 text-lg">1:1 문의</p>
         </div>
         <form className="relative -top-14 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md" onSubmit={handleSubmit}>
-          <h2 className="text-black text-2xl font-bold mb-4">문의유형 <span className="text-red-500">*</span></h2>
+          <h2 className="text-black text-2xl font-bold mb-4">
+            문의유형 <span className="text-red-500">*</span>
+          </h2>
           <select
             name="questionType"
             className="w-full p-2 border rounded text-black custom-select"
             value={formData.questionType}
             onChange={handleChange}
           >
-            <option value="" disabled>문의 유형을 선택해 주세요.</option>
+            <option value="" disabled>
+              문의 유형을 선택해 주세요.
+            </option>
             <option value="STATION">관측소</option>
             <option value="DUST">미세먼지</option>
             <option value="ALERT">알람</option>
