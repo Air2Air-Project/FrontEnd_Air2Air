@@ -29,6 +29,7 @@ const LoginForm = () => {
       localStorage.setItem('ACCESS_TOKEN', response.headers['authorization']);
       localStorage.setItem('username', response.data.username);
       localStorage.setItem('email', response.data.email);
+      localStorage.setItem('memberId', response.data.memberId);
       console.log("userData:", response.data);
       setUser(response.data);
       setUserLocation(response.data.stationName);
