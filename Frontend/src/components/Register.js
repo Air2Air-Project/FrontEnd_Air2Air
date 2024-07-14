@@ -16,7 +16,9 @@ export default function Register() {
     }
   });
   const [isEmailUnique, setIsEmailUnique] = useState(null); // ID 중복 확인 결과를 저장할 상태
-  const [checkMessage, setCheckMessage] = useState('');
+  const [isNameUnique, setIsNameUnique] = useState(null);
+  const [checkEmailMessage, setCheckEmailMessage] = useState('');
+  const [checkNameMessage, setCheckNameMessage] = useState('');
   const [passwordValid, setPasswordValid] = useState(true);
   const navigate = useNavigate();
 
@@ -43,7 +45,7 @@ export default function Register() {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://10.125.121.224:8080/user/register', formData)
+    axios.post('http://10.125.121.224:8080/signUp', formData)
       .then(response => {
         console.log('Data sent successfully:', response.data);
         navigate('/login'); // 성공적으로 등록된 후 로그인 페이지로 리디렉션
@@ -55,18 +57,35 @@ export default function Register() {
 
   const handleCheckId = async () => {
     try {
-      const response = await axios.get(`http://10.125.121.224:8080/checkId/${formData.email}`);
+      const response = await axios.post('http://10.125.121.224:8080/checkEmail', { email: formData.email });
       if (response.data) {
-        setIsEmailUnique(true);
-        setCheckMessage('사용 가능한 ID입니다.');
-      } else {
         setIsEmailUnique(false);
-        setCheckMessage('이미 사용 중인 ID입니다.');
+        setCheckEmailMessage('이미 사용 중인 Email입니다.');
+      } else {
+        setIsEmailUnique(true);
+        setCheckEmailMessage('사용 가능한 Email입니다.');
       }
     } catch (error) {
-      console.error('Error checking ID uniqueness:', error);
+      console.error('Error checking Email uniqueness:', error);
       setIsEmailUnique(false);
-      setCheckMessage('ID 확인 중 오류가 발생했습니다.');
+      setCheckEmailMessage('Email 확인 중 오류가 발생했습니다.');
+    }
+  };
+  //username check
+  const handleCheckName = async () => {
+    try {
+      const response = await axios.post('http://10.125.121.224:8080/checkUsername', { username: formData.username });
+      if (response.data) {
+        setIsNameUnique(false);
+        setCheckNameMessage('이미 사용 중인 username입니다.');
+      } else {
+        setIsNameUnique(true);
+        setCheckNameMessage('사용 가능한 username입니다.');
+      }
+    } catch (error) {
+      console.error('Error checking username uniqueness:', error);
+      setIsNameUnique(false);
+      setCheckNameMessage('username 확인 중 오류가 발생했습니다.');
     }
   };
 
@@ -81,7 +100,7 @@ export default function Register() {
             <div>
               <label htmlFor="email" className="block text-base font-bold text-black">Email</label>
               <div className='flex justify-between'>
-                <input type="text" id="email" name="email" value={formData.email} onChange={handleChange} className="mt-1 block w-3/4 p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent" />
+                <input type="text" id="email" name="email" value={formData.email} onChange={handleChange} className="mt-1 block w-3/4 p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent text-black" />
                 <div className='flex justify-center items-center mr-5'>
                   <button type="button" className='border border-black text-black hover:bg-white hover:bg-opacity-30 py-1 px-3 rounded-md'
                     onClick={handleCheckId}
@@ -91,22 +110,40 @@ export default function Register() {
               </div>
               {isEmailUnique !== null && (
             <p className={`m-2 text-sm ${isEmailUnique ? 'text-[#153c27]' : 'text-red-800'}`}>
-              {checkMessage}
+              {checkEmailMessage}
             </p>
           )}
             </div>
-            <div>
+          {/* username check */}
+          <div>
+              <label htmlFor="username" className="block text-base font-bold text-black pt-3">Username</label>
+              <div className='flex justify-between'>
+                <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} className="mt-1 block w-3/4 p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent text-black" />
+                <div className='flex justify-center items-center mr-5'>
+                  <button type="button" className='border border-black text-black hover:bg-white hover:bg-opacity-30 py-1 px-3 rounded-md'
+                    onClick={handleCheckName}
+                    >
+                  중복확인</button>
+                </div>
+              </div>
+              {isNameUnique !== null && (
+            <p className={`m-2 text-sm ${isNameUnique ? 'text-[#153c27]' : 'text-red-800'}`}>
+              {checkNameMessage}
+            </p>
+          )}
+            </div>
+            {/* <div>
               <label htmlFor="username" className="block text-base font-bold text-black">Username</label>
               <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent" />
-            </div>
+            </div> */}
             <div className='mt-4'>
               <label htmlFor="password" className="block text-base font-bold text-black">Password</label>
-              <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent" />
+              <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent text-black" />
               {!passwordValid && <p className="text-red-800 text-sm mt-1">비밀번호는 대소문자와 숫자를 각각 하나 이상 포함해야 합니다.</p>}
             </div>
             <div className='mt-4'>
               <label htmlFor="phoneNumber" className="block text-base font-bold text-black">Cellphone</label>
-              <input type="text" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent" />
+              <input type="text" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent text-black" />
             </div>
             <div className='mt-4'>
               <label htmlFor="region" className="block text-base font-bold text-black">관측소 선택</label>

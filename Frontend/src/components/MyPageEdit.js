@@ -66,11 +66,14 @@ export default function MyPageEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('ACCESS_TOKEN');
+    // console.log("Access token:",localStorage.getItem('ACCESS_TOKEN'));
     if (!localUser.password) {
       alert('비밀번호를 입력해주세요.');
       return;
     }
     try {
+      console.log("newRegion:",localUser.region);
+      
       const response = await axios.put(`http://10.125.121.224:8080/user/profile`, localUser, {
         headers: {
           Authorization: `Bearer ${token}`,

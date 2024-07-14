@@ -40,7 +40,7 @@ const DustCard = ({ title, value, grade, location, unit }) => {
     }
   };
   return (
-    <div className="bg-white bg-opacity-80 p-5 rounded-2xl shadow-md flex w-full mt-5">
+    <div className="bg-white bg-opacity-80 p-5 rounded-2xl shadow-md flex w-full">
       {/* <div className='flex flex-col w-full'> */}
       <div className="ml-4 mt-8 pb-3 w-[70px] h-[70px] justify-start">
         {renderIcon()}

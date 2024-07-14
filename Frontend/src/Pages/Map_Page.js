@@ -8,7 +8,7 @@ import Footer from '../components/Footer.js';
 
 export default function Map_Page() {
   const [locationData, setLocationData] = useState({ address: '', info: '' });
-  const handleAddressChange = (geoAddress, newAddress, newInfo) => {
+  const handleAddressChange = ( newAddress, geoAddress, newInfo) => {
     setLocationData({ address: geoAddress, info: newInfo });
   };
   return (

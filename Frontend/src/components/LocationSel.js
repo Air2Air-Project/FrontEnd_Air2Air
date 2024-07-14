@@ -48,7 +48,7 @@ export default function LocationSel({ onChange = () => {} }) {
       const geoAddress = `${selectedLarge} ${selectedMedium} ${value}`;
       // const newAddress = `${value}`;
       const info = getInfo(value);
-      onChange(geoAddress, newAddress, info);
+      onChange(newAddress, geoAddress, info);
     };
     const getInfo = (value) => {
       const station = addressData.find(item => item.small === value);
@@ -62,7 +62,7 @@ export default function LocationSel({ onChange = () => {} }) {
               {({ open }) => (
                 <>
                   <div className="relative mt-2">
-                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-20 py-1.5 pl-3 pr-10 text-left text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-green-600 sm:text-sm sm:leading-6">
+                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-left text-black shadow-sm ring-1 ring-inset ring-gray-700 focus:outline-none focus:ring-2 focus:ring-green-600 sm:text-sm sm:leading-6">
                       <span className="block truncate">{selectedLarge || '시 / 도'}</span>
                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                         <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -76,7 +76,7 @@ export default function LocationSel({ onChange = () => {} }) {
                       leaveTo="opacity-0"
                     >
                       <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                        {largeCategories.map((sido, index) => (
+                        {largeCategories.map((large, index) => (
                           <Listbox.Option
                             key={index}
                             className={({ active }) =>
@@ -85,12 +85,12 @@ export default function LocationSel({ onChange = () => {} }) {
                                 'relative cursor-default select-none py-2 pl-3 pr-9'
                               )
                             }
-                            value={sido}
+                            value={large}
                           >
                             {({ selected, active }) => (
                               <>
                                 <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                                  {sido}
+                                  {large}
                                 </span>
                                 {selected ? (
                                   <span
@@ -120,7 +120,7 @@ export default function LocationSel({ onChange = () => {} }) {
                 {({ open }) => (
                   <>
                     <div className="relative mt-2">
-                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-20 py-1.5 pl-3 pr-10 text-left text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-left text-black shadow-sm ring-1 ring-inset ring-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         <span className="block truncate">{selectedMedium || '구 / 군'}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                           <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -134,7 +134,7 @@ export default function LocationSel({ onChange = () => {} }) {
                         leaveTo="opacity-0"
                       >
                         <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                          {mediumCategories.map((gugun, index) => (
+                          {mediumCategories.map((middle, index) => (
                             <Listbox.Option
                               key={index}
                               className={({ active }) =>
@@ -143,12 +143,12 @@ export default function LocationSel({ onChange = () => {} }) {
                                   'relative cursor-default select-none py-2 pl-3 pr-9'
                                 )
                               }
-                              value={gugun}
+                              value={middle}
                             >
                               {({ selected, active }) => (
                                 <>
                                   <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                                    {gugun}
+                                    {middle}
                                   </span>
                                   {selected ? (
                                     <span
@@ -179,7 +179,7 @@ export default function LocationSel({ onChange = () => {} }) {
                 {({ open }) => (
                   <>
                     <div className="relative mt-2">
-                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-20 py-1.5 pl-3 pr-10 text-left text-white shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-left text-black shadow-sm ring-1 ring-inset ring-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                         <span className="block truncate">{selectedSmall || '읍 / 면 / 동'}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                           <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -193,7 +193,7 @@ export default function LocationSel({ onChange = () => {} }) {
                         leaveTo="opacity-0"
                       >
                         <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                          {smallCategories.map((eupmyeondong, index) => (
+                          {smallCategories.map((small, index) => (
                             <Listbox.Option
                               key={index}
                               className={({ active }) =>
@@ -202,12 +202,12 @@ export default function LocationSel({ onChange = () => {} }) {
                                   'relative cursor-default select-none py-2 pl-3 pr-9'
                                 )
                               }
-                              value={eupmyeondong}
+                              value={small}
                             >
                               {({ selected, active }) => (
                                 <>
                                   <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                                    {eupmyeondong}
+                                    {small}
                                   </span>
                                   {selected ? (
                                     <span
