@@ -12,6 +12,7 @@ export default function Modify() {
   const navigate = useNavigate();
   const location = useLocation();
   const initialData = location.state || {};
+  const token = localStorage.getItem('ACCESS_TOKEN');
 
   const [questionData, setQuestionData] = useState({
     seq: seq,
@@ -28,7 +29,7 @@ export default function Modify() {
   useEffect(() => {
     const fetchQuestionDetail = async () => {
       try {
-        const response = await axios.get(`http://10.125.121.224:8080/question/detail/${seq}`);
+        const response = await axios.get(`http://10.125.121.224:8080/board/detail/${seq}`);
         const { title, content, questionType } = response.data;
         setQuestionData({
           seq: seq,
@@ -78,6 +79,7 @@ export default function Modify() {
         {
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -98,7 +100,7 @@ export default function Modify() {
 
   return (
     <div className="h- justify-center items-center">
-      <div className="relative -top-14 flex flex-col items-center bg-[#17444F] text-white p-10 rounded-lg mb-8">
+      <div className="relative -top-14 flex flex-col items-center bg-[#1d5666] text-white p-10 rounded-lg mb-8">
         <div className="flex items-center space-x-2">
           <img src={Comment} alt="icon" className="h-16 w-16 icon" />
           <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>

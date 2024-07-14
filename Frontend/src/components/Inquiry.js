@@ -8,7 +8,7 @@ import { userState } from '../recoil/atoms';
 
 export default function Inquiry() {
   const user = useRecoilValue(userState); // Recoil 상태에서 사용자 정보 가져옴
-
+  const token = localStorage.getItem('ACCESS_TOKEN');
   const [formData, setFormData] = useState({
     questionType: '', // 초기값을 빈 문자열로 설정
     title: '',
@@ -43,11 +43,17 @@ export default function Inquiry() {
     try {
       // 서버로 form 데이터 전송
       console.log(formData);
-      await axios.post('http://10.125.121.224:8080/question/register', formData);
+      await axios.post('http://10.125.121.224:8080/question/register', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       // 성공 시 목록 페이지로 리디렉션
+      alert('질문이 등록되었습니다!');
       navigate('/boardlist');
     } catch (error) {
+      alert('질문 등록에 실패했습니다')
       console.error('문의 내용을 저장하는데 오류 발생: ', error);
       console.log('오류 데이터:', formData);
     }
@@ -63,9 +69,9 @@ export default function Inquiry() {
   return (
     <>
       <div className="h- justify-center items-center">
-        <div className="relative -top-14 flex flex-col items-center bg-[#17444F] text-white p-10 rounded-lg mb-8">
+        <div className="relative -top-14 flex flex-col items-center bg-[#1d5666] text-white p-10 rounded-lg mb-8">
           <div className="flex items-center space-x-2">
-            <img src={Comment} alt="icon" className="h-16 w-16 icon" />
+            <img src={Comment} alt="icon" className="h-[75px] w-[75px] icon" />
             <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
             <img src={Consultant} alt="icon" className="h-16 w-16 icon" />
           </div>

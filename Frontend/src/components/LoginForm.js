@@ -36,6 +36,11 @@ const LoginForm = () => {
       console.log("stationName:",response.data.stationName);
       setIsLoggedIn(true);
 
+       // 관리자 역할 확인 후 환영 메시지 표시
+       if (response.data.role === 'ROLE_ADMIN') {
+        alert('관리자님 환영합니다!');
+      }
+
       navigate("/");
     } catch (error) {
       console.error('Login error:', error);

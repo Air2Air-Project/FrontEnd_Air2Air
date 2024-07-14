@@ -13,10 +13,10 @@ export default function QuestionDetail() {
   const [isDeleted, setIsDeleted] = useState(false);
   const user = useRecoilValue(userState); // Recoil 상태에서 사용자 정보 가져옴
 
-  // 로컬 스토리지에서 가져온 memberId 확인
+  // Recoil 상태에서 가져온 사용자 정보 확인
   useEffect(() => {
-    console.log('user.memberId:', user.memberId);
-  }, [user.memberId]);
+    console.log('Recoil user state:', user);
+  }, [user]);
 
   // 날짜 포맷팅 함수
   const formatDate = (dateString) => {
@@ -30,11 +30,11 @@ export default function QuestionDetail() {
   // 질문 상세 정보를 가져오는 함수
   const fetchQuestionDetail = async () => {
     try {
-      const response = await axios.get(`http://10.125.121.224:8080/question/detail/${seq}`);
+      const response = await axios.get(`http://10.125.121.224:8080/board/detail/${seq}`);
       const data = response.data;
       console.log('응답 데이터:', data); // 전체 응답 데이터를 확인
-      if (!data.member) {
-        data.member = {}; // member 속성이 없을 경우 빈 객체로 초기화
+      if (!data.member || !data.member.memberId) {
+        data.member = { memberId: null }; // member 속성이 없거나 memberId가 없을 경우 기본값 설정
       }
       setQuestionDetail(data);
       console.log('questionDetail.member.memberId:', data.member.memberId); // 값 확인
@@ -61,7 +61,7 @@ export default function QuestionDetail() {
       const response = await axios.delete('http://10.125.121.224:8080/question/delete', {
         params: {
           questionId: seq,
-          memberId: user.memberId,
+          memberId: user ? user.memberId : null,
         },
       });
       console.log('삭제 요청 응답:', response);
@@ -81,9 +81,9 @@ export default function QuestionDetail() {
   return (
     <>
       <div className="h- justify-center items-center">
-        <div className="relative sm:-top-0 md:-top-0 lg:-top-10 flex flex-col items-center bg-[#17444F] text-white p-10 rounded-lg mb-8">
+        <div className="relative sm:-top-0 md:-top-0 lg:-top-10 flex flex-col items-center bg-[#1d5666] text-white p-10 rounded-lg mb-8">
           <div className="flex items-center space-x-2">
-            <img src={Comment} alt="icon" className="h-16 w-16 icon" />
+            <img src={Comment} alt="icon" className="h-[75px] w-[75px] icon" />
             <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
             <img src={Consultant} alt="icon" className="h-16 w-16 icon" />
           </div>
@@ -119,13 +119,18 @@ export default function QuestionDetail() {
 
           <div className="flex justify-between mt-8">
             <div className="flex space-x-4">
-              {questionDetail.member && user.memberId === questionDetail.member.memberId && (
+              {questionDetail.member.memberId && user && user.memberId === questionDetail.member.memberId && (
                 <>
                   <Link to={`/modify/${seq}`} state={questionDetail}>
                     <button className="bg-gray-200 text-black py-2 px-4 rounded shadow">수정</button>
                   </Link>
                   <button onClick={handleDelete} className="bg-gray-200 text-black py-2 px-4 rounded shadow">삭제</button>
                 </>
+              )}
+              {user && user.role === 'ROLE_ADMIN' && (
+                <Link to={`/answer/${seq}`}>
+                  <button className="bg-gray-200 text-black py-2 px-4 rounded shadow">답변 등록</button>
+                </Link>
               )}
             </div>
             <Link to="/boardlist">

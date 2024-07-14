@@ -22,6 +22,7 @@ export default function BoardList() {
     try {
       const response = await axios.get('http://10.125.121.224:8080/boardlist');
       setQuestions(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error('데이터 불러오는데 오류!: ', error);
     }
@@ -84,16 +85,16 @@ export default function BoardList() {
 
   return (
     <section className="section02 board_list_section flex flex-col justify-center items-center favicon">
-      <div className="relative top-0 sm:-top-32 md:-top-44 lg:-top-14  flex flex-col items-center bg-[#17444F] text-white p-10 rounded-lg mb-8">
+      <div className="relative top-0 sm:-top-32 md:-top-44 lg:-top-14 flex flex-col items-center bg-[#1d5666] text-white p-10 rounded-lg mb-8">
         <div className="flex items-center space-x-2">
-          <img src={Comment} alt="icon" className="h-16 w-16 icon" />
+          <img src={Comment} alt="icon" className="h-[75px] w-[75px] icon" />
           <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
           <img src={Consultant} alt="icon" className="h-16 w-16 icon" />
         </div>
         <p className="mt-2 text-lg">1:1 문의</p>
       </div>
 
-      <div className="relative top-0 sm:-top-8 md:-top-36 lg:-top-8 container mx-auto px-4 h- py-4 bg-[#b3dcde] rounded-lg shadow-md mb-8">
+      <div className="relative top-0 sm:-top-8 md:-top-36 lg:-top-8 w-full px-4 py-4 bg-[#b3dcde] rounded-lg shadow-md mb-8">
         <div className="flex space-x-4">
           <select
             className="w-full p-2 border rounded text-black custom-select"
@@ -130,31 +131,36 @@ export default function BoardList() {
         </div>
       </div>
 
-      <div className="relative top-0 sm:-top-8 md:-top-36 lg:-top-8 container mx-auto px-4 py-4 bg-white rounded-lg shadow-md">
+      <div className="relative top-0 sm:-top-8 md:-top-36 lg:-top-8 w-full max-w-4xl mx-auto px-4 py-4 bg-white rounded-lg shadow-md">
         <h2 className="text-left text-xl font-bold text-black mb-4 border-b border-black pb-2">
           <span className="text-red-500">{questions.length}</span>개의 질문이 검색되었습니다.
         </h2>
-        <table className="min-w-full text-black border-collapse">
+        <table className="w-full text-black border-collapse table-fixed">
           <thead className="border-b">
             <tr>
-              <th className="px-4 py-2 ">질문번호</th>
-              <th className="px-4 py-2 ">문의유형</th>
-              <th className="px-4 py-2 ">제목</th>
-              <th className="px-4 py-2 ">작성자</th>
-              <th className="px-4 py-2">작성일</th>
+              <th className="w-16 px-4 py-2">질문번호</th>
+              <th className="w-24 px-4 py-2">문의유형</th>
+              <th className="w-1/2 px-4 py-2">제목</th>
+              <th className="w-24 px-4 py-2">작성자</th>
+              <th className="w-32 px-4 py-2">작성일</th>
+              <th className="w-24 px-4 py-2"></th>
             </tr>
           </thead>
           <tbody>
             {currentQuestions.map((question, index) => (
               <tr key={index} className="border-b">
-                <td className="px-4 py-2 ">{question.seq}</td>
-                <td className="px-4 py-2 ">{question.questionType}</td>
-                <td className="px-4 py-2 ">
+                <td className="px-4 py-2">{question.seq}</td>
+                <td className="px-4 py-2">{question.questionType}</td>
+                <td className="px-4 py-2">
                   <Link to={`/question/detail/${question.seq}`}>{question.title}</Link>
                 </td>
-                <td className="px-4 py-2 ">{question.writer}</td>
+                <td className="px-4 py-2">{question.writer}</td>
                 <td className="px-4 py-2">
-                  {formatDate(question.createdDate)}</td>
+                  {formatDate(question.createdDate)}
+                </td>
+                <td className={`px-4 py-2 ${question.answered ? 'text-blue-500' : 'text-red-500'}`}>
+                  {question.answered ? '답변 완료' : '답변 대기'}
+                </td>
               </tr>
             ))}
           </tbody>

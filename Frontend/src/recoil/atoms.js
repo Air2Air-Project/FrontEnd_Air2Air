@@ -17,6 +17,7 @@ export const userState = atom({
   ],
 });
 
+
 export const userLocationState = atom({
   key: 'userLocationState',
   default: localStorage.getItem('USER_LOCATION') || null,
