@@ -19,6 +19,14 @@ export default function QuestionDetail() {
     console.log('Recoil user state:', user);
   }, [user]);
 
+  // 유저가 없을 경우 로그인 페이지로 리디렉션
+  useEffect(() => {
+    if (!user) {
+      alert('로그인이 필요합니다.');
+      navigate('/login'); // 로그인 페이지로 리디렉션
+    }
+  }, [user, navigate]);
+
   // 날짜 포맷팅 함수
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -106,7 +114,7 @@ export default function QuestionDetail() {
   return (
     <>
       <div className="h- justify-center items-center">
-        <div className="relative sm:-top-0 md:-top-0 lg:-top-0 flex flex-col items-center bg-[#1d5666] text-white p-10 rounded-lg mb-8">
+        <div className="relative sm:-top-10 md:-top-10 lg:-top-10 flex flex-col items-center bg-[#9DC3E6] text-white p-10 rounded-lg mb-8">
           <div className="flex items-center space-x-2">
             <img src={Comment} alt="icon" className="h-[75px] w-[75px] animate-scale-up" />
             <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
@@ -115,7 +123,7 @@ export default function QuestionDetail() {
           <p className="mt-2 text-lg">1:1 문의</p>
         </div>
 
-        <form className="relative top-0 sm:-top-0 md:-top-0 lg:-top-0 mb-20 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <form className="relative top-0 sm:-top-10 md:-top-10 lg:-top-10 mb-20 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
           <div className="text-left font-bold text-black mb-4 border-b border-black pb-2">
             <div className="text-gray-600 mb-2">
               <span>작성자: {questionDetail.writer} </span>
@@ -171,7 +179,7 @@ export default function QuestionDetail() {
               )}
             </div>
             <Link to="/boardlist">
-              <button className="bg-[#17444F] text-white py-2 px-4 rounded shadow">목록</button>
+              <button className="bg-[#6a9af3] text-white py-2 px-4 rounded shadow">목록</button>
             </Link>
           </div>
         </form>

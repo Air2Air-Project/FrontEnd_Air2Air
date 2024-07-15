@@ -14,13 +14,21 @@ export default function Modify() {
   const initialData = location.state || {};
   const token = localStorage.getItem('ACCESS_TOKEN');
 
+  // 유저가 없을 경우 로그인 페이지로 리디렉션
+  useEffect(() => {
+    if (!user) {
+      alert('로그인이 필요합니다.');
+      navigate('/login'); // 로그인 페이지로 리디렉션
+    }
+  }, [user, navigate]);
+
   const [questionData, setQuestionData] = useState({
     seq: seq,
     title: initialData.title || '',
     content: initialData.content || '',
     questionType: '', // 초기값을 빈 문자열로 설정
     member: {
-      memberId: user.memberId
+      memberId: user ? user.memberId : '' // user가 null인지 확인
     }
   });
 
@@ -44,7 +52,7 @@ export default function Modify() {
           content: content,
           questionType: questionType || '',
           member: {
-            memberId: user.memberId
+            memberId: user ? user.memberId : '' // user가 null인지 확인
           }
         });
       } catch (error) {
@@ -55,8 +63,10 @@ export default function Modify() {
       }
     };
 
-    fetchQuestionDetail();
-  }, [seq, user.memberId]);
+    if (user) {
+      fetchQuestionDetail();
+    }
+  }, [seq, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,7 +85,7 @@ export default function Modify() {
         content: questionData.content,
         questionType: questionData.questionType,
         member: {
-          memberId: user.memberId
+          memberId: user ? user.memberId : '' // user가 null인지 확인
         }
       };
       console.log('전송할 데이터:', JSON.stringify(dataToSend, null, 2));
@@ -104,10 +114,13 @@ export default function Modify() {
     }
   };
 
+  if (!user) {
+    return <div>로그인이 필요합니다.</div>; // user가 없을 때 메시지 표시
+  }
 
   return (
     <div className="h- justify-center items-center">
-      <div className="relative -top-14 flex flex-col items-center bg-[#1d5666] text-white p-10 rounded-lg mb-8">
+      <div className="relative -top-14 flex flex-col items-center bg-[#9DC3E6] text-white p-10 rounded-lg mb-8">
         <div className="flex items-center space-x-2">
           <img src={Comment} alt="icon" className="h-16 w-16 icon" />
           <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
@@ -164,7 +177,7 @@ export default function Modify() {
               목록보기
             </button>
           </Link>
-          <button type="submit" className="bg-[#17444F] text-white py-2 px-4 rounded shadow">
+          <button type="submit" className="bg-[#6a9af3] text-white py-2 px-4 rounded shadow">
             수정하기
           </button>
         </div>

@@ -30,15 +30,15 @@ export default function Board() {
   return (
     <>
       <div className="flex flex-col justify-center items-center">
-        <div className="relative -top-36 flex flex-col items-center bg-[#1d5666] text-white p-10 rounded-lg mb-8">
+        <div className="relative -top-36 flex flex-col items-center bg-transparent text-white p-10 rounded-lg mb-8">
           <div className="flex items-center space-x-2">
             <img src={Comment} alt="icon" className="h-[75px] w-[75px] icon" />
-            <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
+            <h1 className="p-5 text-5xl font-bold">무엇을 도와드릴까요?</h1>
             <img src={Consultant} alt="icon" className="h-16 w-16 icon" />
           </div>
           <p className="mt-2 text-lg">1:1 문의</p>
         </div>
-        <div className="relative -top-16 bg-[#b3dcde] p-6 rounded-lg flex items-center w-1/2">
+        <div className="relative -top-16 bg-[#6a9af3] p-6 rounded-lg flex items-center w-1/2">
           <img src={Chat} alt="icon" className="h-20 w-20 mr-4" />
           <div>
             <p className="mb-4 text-xl font-bold text-black">회원 문의</p>

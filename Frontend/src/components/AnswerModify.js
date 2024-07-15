@@ -15,8 +15,14 @@ export default function AnswerModify() {
   const token = localStorage.getItem('ACCESS_TOKEN');
 
   useEffect(() => {
+    // 유저가 없을 경우 로그인 페이지로 리디렉션
+    if (!user) {
+      alert('권한이 없습니다.');
+      navigate('/login'); // 로그인 페이지로 리디렉션
+      return;
+    }
     fetchQuestionDetail();
-  }, [seq]);
+  }, [seq, user, navigate]);
 
   const fetchQuestionDetail = async () => {
     try {
@@ -73,7 +79,7 @@ export default function AnswerModify() {
 
   return (
     <div className="justify-center items-center">
-      <div className="relative sm:-top-0 md:-top-0 lg:-top-0 flex flex-col items-center bg-[#1d5666] text-white p-10 rounded-lg mb-8">
+      <div className="relative sm:-top-0 md:-top-0 lg:-top-0 flex flex-col items-center bg-[#9DC3E6] text-white p-10 rounded-lg mb-8">
         <div className="flex items-center space-x-2">
           <img src={Comment} alt="icon" className="h-[75px] w-[75px] icon" />
           <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>

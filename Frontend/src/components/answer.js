@@ -96,7 +96,7 @@ export default function Answer() {
   return (
     <>
       <div className=" justify-center items-center">
-        <div className="relative sm:-top-0 md:-top-0 lg:-top-0 flex flex-col items-center bg-[#1d5666] text-white p-10 rounded-lg mb-8">
+        <div className="relative sm:-top-0 md:-top-0 lg:-top-0 flex flex-col items-center bg-[#9DC3E6] text-white p-10 rounded-lg mb-8">
           <div className="flex items-center space-x-2">
             <img src={Comment} alt="icon" className="h-[75px] w-[75px] icon" />
             <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
@@ -145,7 +145,7 @@ export default function Answer() {
                 <button type="submit" className="bg-gray-200 text-black py-2 px-4 rounded shadow">등록하기</button> 
             </div>
             <Link to="/boardlist">
-              <button className="bg-[#17444F] text-white py-2 px-4 rounded shadow">목록</button>
+              <button className="bg-[#6a9af3] text-white py-2 px-4 rounded shadow">목록</button>
             </Link>
           </div>
         </form>

@@ -8,7 +8,7 @@ export default function Board_Page() {
   return (
     <div>
     <Nav/>
-    <div className="bg-[#1d5666] text-white text-center rounded-t-3xl min-h-screen flex justify-center items-center">
+    <div className="bg-[#9DC3E6] text-white text-center rounded-t-3xl min-h-screen flex justify-center items-center">
       <QuestionDetail />
       
     </div>
