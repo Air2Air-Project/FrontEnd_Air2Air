@@ -96,7 +96,7 @@ export default function Answer() {
   return (
     <>
       <div className=" justify-center items-center">
-        <div className="relative sm:-top-0 md:-top-0 lg:-top-16 flex flex-col items-center bg-[#1d5666] text-white p-10 rounded-lg mb-8">
+        <div className="relative sm:-top-0 md:-top-0 lg:-top-0 flex flex-col items-center bg-[#1d5666] text-white p-10 rounded-lg mb-8">
           <div className="flex items-center space-x-2">
             <img src={Comment} alt="icon" className="h-[75px] w-[75px] icon" />
             <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
@@ -105,7 +105,7 @@ export default function Answer() {
           <p className="mt-2 text-lg">1:1 문의</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="relative top-0 sm:-top-0 md:-top-0 lg:-top-16 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <form onSubmit={handleSubmit} className="mb-20 relative top-0 sm:-top-0 md:-top-0 lg:-top-0 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
           <div className="text-left font-bold text-black mb-4 border-b border-black pb-2">
             <div className="text-gray-600 mb-2">
               <span>작성자: {questionDetail.writer} </span>
@@ -142,7 +142,7 @@ export default function Answer() {
           <div className="flex justify-between mt-8">
             <div className="flex space-x-4">
                 {/* {/* <button type="submit" className="bg-gray-200 text-black py-2 px-4 rounded shadow">수정</button> */}
-                <button type="submit" className="bg-gray-200 text-black py-2 px-4 rounded shadow">답변등록</button> 
+                <button type="submit" className="bg-gray-200 text-black py-2 px-4 rounded shadow">등록하기</button> 
             </div>
             <Link to="/boardlist">
               <button className="bg-[#17444F] text-white py-2 px-4 rounded shadow">목록</button>

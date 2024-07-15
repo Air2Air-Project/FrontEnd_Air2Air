@@ -27,6 +27,13 @@ export default function Modify() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const icons = document.querySelectorAll('.icon');
+    icons.forEach((icon) => {
+      icon.classList.add('animate-scale-up');
+    });
+  }, []);
+
+  useEffect(() => {
     const fetchQuestionDetail = async () => {
       try {
         const response = await axios.get(`http://10.125.121.224:8080/board/detail/${seq}`);

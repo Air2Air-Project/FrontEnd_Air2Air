@@ -108,9 +108,9 @@ export default function QuestionDetail() {
       <div className="h- justify-center items-center">
         <div className="relative sm:-top-0 md:-top-0 lg:-top-0 flex flex-col items-center bg-[#1d5666] text-white p-10 rounded-lg mb-8">
           <div className="flex items-center space-x-2">
-            <img src={Comment} alt="icon" className="h-[75px] w-[75px] icon" />
+            <img src={Comment} alt="icon" className="h-[75px] w-[75px] animate-scale-up" />
             <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
-            <img src={Consultant} alt="icon" className="h-16 w-16 icon" />
+            <img src={Consultant} alt="icon" className="h-16 w-16 animate-scale-up" />
           </div>
           <p className="mt-2 text-lg">1:1 문의</p>
         </div>
