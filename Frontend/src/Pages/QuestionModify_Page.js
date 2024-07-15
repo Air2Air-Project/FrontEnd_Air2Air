@@ -1,6 +1,6 @@
 import React from 'react'
 import Nav from '../components/Nav.js';
-import Modify from '../components/modify.js';
+import QuestionModify from '../components/QuestionModify.js';
 import Footer from '../components/Footer.js';
 
 export default function Board_Page() {
@@ -8,7 +8,7 @@ export default function Board_Page() {
     <>
     <Nav/>
     <div className="bg-[#1d5666] text-white text-center rounded-t-3xl  h-[110vh] flex justify-center items-center">
-      <Modify/>
+      <QuestionModify/>
       
     </div>
     <Footer />
