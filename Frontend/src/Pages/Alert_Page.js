@@ -7,6 +7,8 @@ import { useRecoilValue } from 'recoil';
 import { userLocationState, isLoggedInState } from '../recoil/atoms';
 import axios from 'axios';
 import AlarmList from '../components/AlarmList.js';
+import DustCard2 from '../components/DustCard2.js';
+import Gauge from '../components/Gauge.js';
 
 export default function Forecast_Page() {
   const isLoggedIn = useRecoilValue(isLoggedInState);
@@ -55,15 +57,19 @@ export default function Forecast_Page() {
   return (
     <>
     <Nav/>
-    <div className="bg-[url('./components/background/background.png')] text-white text-center rounded-t-3xl p-3 h-[83vh] flex flex-col justify-start items-center">
+    <div className="bg-[url('./components/background/cloudbg1.png')] text-white text-center rounded-t-3xl p-3 h-[90vh] flex flex-col justify-start items-center">
       <div className='m-10 font-bold text-2xl'>이상탐지 예측 알림</div>
       <LocationSel onChange={setSelectedLocation} className="min-w-[300px]"/>
-      <div className="flex gap-10 mt-4">
-        <AlarmCard title="AQI" value={70} />
-        <AlarmCard title="UPI" value={40} />
+      <div className="flex justify-center gap-8 mt-4 w-[90%]">
+        {/* <AlarmCard title="AQI" value={70} /> */}
+        {/* <AlarmCard title="UPI" value={40} /> */}
+        <Gauge powerData="70" title="도시공해지수" gaugeColor={["#95B8D1", "#05668D", "#05668D"]}/>
+        <Gauge powerData="55" title="대기환경지수" gaugeColor={["#ffd60a", "#EBA6A9", "#e03400"]}/>
+        <Gauge powerData="80" title="야외활동지수" gaugeColor={["#BBD5AF", "#BBD5AF", "#354f52"]}/>
+        {/* <DustCard2/> */}
       </div>
-      <div className='flex'>
-      <AlarmList data={actData} formatDateTime={formatDateTime} />
+      <div className='flex w-[90%] gap-8'>
+      <AlarmList data={actData} formatDateTime={formatDateTime}/>
       <AlarmList data={polData} formatDateTime={formatDateTime} />
       </div>
     </div>

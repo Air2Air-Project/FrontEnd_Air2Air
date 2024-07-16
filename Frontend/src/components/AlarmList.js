@@ -23,7 +23,7 @@ const AlarmList = ({ data, formatDateTime, limit }) => {
   };
 
   return (
-    <div className=' bg-white bg-opacity-80 p-5 rounded-lg shadow-lg w-full overflow-auto h-96 min-w-96 m-5'>
+    <div className=' bg-white bg-opacity-80 p-5 rounded-lg shadow-lg w-full overflow-auto h-96 min-w-96 mt-5'>
       <ul role="list" className="mb-8">
         {displayData.map((event, eventIdx) => (
           
@@ -56,7 +56,7 @@ const AlarmList = ({ data, formatDateTime, limit }) => {
                         {formatDateTime(event.alertTime)} &nbsp;
                         </time>
                         <p className="text-sm text-gray-500">
-                        {event.region.sido} {event.region.gugun} {event.region.eupmyeondong} - {event.alertType}
+                        {event.region.large} {event.region.middle} {event.region.small} - {event.alertType}
                         </p>
                     </div>
                     </div>

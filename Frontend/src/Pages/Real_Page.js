@@ -44,7 +44,7 @@ export default function Real_Page() {
   return (
     <div className='flex flex-col'>
     <Nav/>
-    <div className="bg-[url('./components/background/background.png')] text-black text-center rounded-t-3xl p-3 lg:h-[83vh] md:h-[100vh] flex justify-start items-center flex-col">
+    <div className="bg-[url('./components/background/cloudbg1.png')] text-black text-center rounded-t-3xl p-3 lg:h-[83vh] md:h-[100vh] flex justify-start items-center flex-col">
     <h1 className="text-2xl font-bold text-center m-7 text-white">실시간 대기상태 정보</h1>
     <LocationSel onChange={setSelectedLocation}/>
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4 mt-5 justify-center items-center w-full">
