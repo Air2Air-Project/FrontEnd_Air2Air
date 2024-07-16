@@ -10,7 +10,7 @@ export default function Gauge({powerData, title, gaugeColor}) {
     },[powerData])
 
     return (
-        <div className='flex flex-col items-center bg-white bg-opacity-80 rounded-lg p-5 w-full'>
+        <div className='flex flex-col items-center bg-white bg-opacity-80 rounded-lg p-5'>
         <h2 className='text-black font-semibold pb-2'>{title}</h2>
         <GaugeChart id="gauge-chart1"
             nrOfLevels={25}

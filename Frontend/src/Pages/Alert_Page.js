@@ -59,8 +59,10 @@ export default function Forecast_Page() {
     <Nav/>
     <div className="bg-[url('./components/background/cloudbg1.png')] text-white text-center rounded-t-3xl p-3 h-[90vh] flex flex-col justify-start items-center">
       <div className='m-10 font-bold text-2xl'>이상탐지 예측 알림</div>
-      <LocationSel onChange={setSelectedLocation} className="min-w-[300px]"/>
-      <div className="flex justify-center gap-8 mt-4 w-[90%]">
+      <div className='w-[90%]'>
+        <LocationSel onChange={setSelectedLocation} className="min-w-[300px]"/>
+      </div>
+      <div className="grid grid-cols-3 justify-center gap-8 mt-4 w-[90%]">
         {/* <AlarmCard title="AQI" value={70} /> */}
         {/* <AlarmCard title="UPI" value={40} /> */}
         <Gauge powerData="70" title="도시공해지수" gaugeColor={["#95B8D1", "#05668D", "#05668D"]}/>

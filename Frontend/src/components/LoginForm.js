@@ -56,14 +56,14 @@ const LoginForm = () => {
     <div className='flex justify-center items-center'>
     <form 
     onSubmit={handleSubmit} 
-    className="bg-white bg-opacity-80 p-10 rounded-2xl shadow-black shadow-md w-full max-w-sm">
+    className="bg-white bg-opacity-80 p-10 rounded-2xl shadow-white w-full max-w-sm">
       <input
         type="text"
         name="email"
         placeholder="ID"
         value={formData.email}
         onChange={handleChange}
-        className="w-full p-2 mb-4 border border-gray-700 rounded bg-transparent mt-7 text-black"
+        className="w-full p-2 mb-4 border border-blue-300 rounded bg-transparent mt-7 text-black"
       />
       <input
         type="password"
@@ -71,12 +71,12 @@ const LoginForm = () => {
         placeholder="Password"
         value={formData.password}
         onChange={handleChange}
-        className="w-full p-2 mb-4 border border-gray-700 rounded bg-transparent text-black"
+        className="w-full p-2 mb-4 border border-blue-300 rounded bg-transparent text-black"
       />
-      <button type="submit" className="w-full bg-[#1F3230] bg-opacity-50 text-black p-2 rounded hover:bg-gray-500">
+      <button type="submit" className="w-full p-2 rounded bg-blue-300 bg-opacity-50 hover:bg-transparent hover:border hover:border-blue-300 hover:text-blue-300">
         Login
       </button>
-      <div className='flex justify-between items-center text-sm pt-5 text-black'>
+      <div className='flex justify-between items-center text-sm pt-5 text-gray-500'>
         <a href='/findId'>Find ID</a>
         <a href='/findPw'>Find Password</a>
         <a href='/register'>Register</a>

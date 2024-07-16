@@ -31,9 +31,9 @@ const Map = ({ address, info }) => {
         if (!mapElement.current || !naver) return;
 
         const mapOptions = {
-          center: new naver.maps.LatLng(37.54, 126.99), // 초기 위치 설정
+          center: new naver.maps.LatLng(35.23, 128.69), // 초기 위치 설정
           zoom: 15,
-          zoomControl: true,
+          zoomControl: false
         };
 
         const newMap = new naver.maps.Map(mapElement.current, mapOptions);
@@ -95,7 +95,7 @@ const Map = ({ address, info }) => {
   };
 
   return (
-    <div className='flex h-[77%] justify-center'>
+    <div className='flex h-[77%] justify-center w-full'>
       <div ref={mapElement} className='rounded-3xl mt-3 w-[90%]' />
       {/* <div className='bg-white bg-opacity-50 rounded-3xl mt-3 ml-3 p-3 w-[40%]'>어쩌구</div> */}
     </div>
