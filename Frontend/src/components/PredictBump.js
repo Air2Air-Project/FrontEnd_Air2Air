@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { ResponsiveAreaBump } from '@nivo/bump';
 import * as d3 from 'd3'; //데이터값을 화면 좌표에 매핑
