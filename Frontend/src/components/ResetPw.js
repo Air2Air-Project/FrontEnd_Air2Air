@@ -8,6 +8,7 @@ export default function ResetPw() {
   const { email, phoneNumber } = location.state || {};
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [passwordValid, setPasswordValid] = useState(true);
   const checkPw = (password) => {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
     setPasswordValid(regex.test(password));
@@ -15,6 +16,7 @@ export default function ResetPw() {
 
   const handleChange = (e) => {
     setPassword(e.target.value);
+    checkPw(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -56,6 +58,7 @@ export default function ResetPw() {
                         className='whitespace-nowrap px-5 py-4 text-base text-blue-500 bg-transparent placeholder-blue-300 w-full'
                         placeholder='새로운 비밀번호를 입력하세요.'
                       />
+                      {!passwordValid && <p className="text-red-800 text-sm mt-4 text-left">비밀번호는 대소문자와 숫자를 각각 하나 이상 포함해야 합니다.</p>}
                     </td>
                   </tr>
                 </tbody>
