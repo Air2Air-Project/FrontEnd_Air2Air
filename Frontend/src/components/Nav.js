@@ -13,6 +13,7 @@ const navigation = [
   { name: 'Alert', href: '/alert' },
   { name: 'Location', href: '/map' },
   { name: 'Board', href: '/board' },
+  // { name: 'Wind', href: '/wind' },  //test용 나중에 api나오면 삭제
 ]
 
 export default function Nav() {

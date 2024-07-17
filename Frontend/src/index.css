@@ -28,6 +28,10 @@
   @apply outline-none border-2 border-[#9DC3E6];
 }
 
+.custom-button:focus {
+  @apply outline-none border-2 border-[#6a9af3];
+}
+
 body {
   margin: 0;
   font-family: 'Blueroad', sans-serif;

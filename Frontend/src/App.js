@@ -54,7 +54,7 @@ function App() {
           <Route path="/answer/modify/:seq" element={<AnswerModify_Page />} />  
           <Route path="/mypage" element={<Myinfo_Page />} />
           <Route path="/mypageEdit" element={<MyinfoEdit_Page />} />
-
+         
         </Routes>
       </BrowserRouter>
     </RecoilRoot>

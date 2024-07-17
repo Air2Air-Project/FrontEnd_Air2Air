@@ -62,7 +62,7 @@ export default function LocationSel({ onChange = () => {} }) {
               {({ open }) => (
                 <>
                   <div className="relative mt-2">
-                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-left text-black shadow-sm ring-1 ring-inset ring-gray-700 focus:outline-none focus:ring-2 focus:ring-green-600 sm:text-sm sm:leading-6">
+                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-left text-black shadow-sm ring-1 ring-inset ring-gray-700 focus:outline-none focus:ring-2 custom-button sm:text-sm sm:leading-6">
                       <span className="block truncate">{selectedLarge || '시 / 도'}</span>
                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                         <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -81,7 +81,7 @@ export default function LocationSel({ onChange = () => {} }) {
                             key={index}
                             className={({ active }) =>
                               classNames(
-                                active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+                                active ? 'bg-blue-600 text-white' : 'text-gray-900',
                                 'relative cursor-default select-none py-2 pl-3 pr-9'
                               )
                             }
@@ -95,7 +95,7 @@ export default function LocationSel({ onChange = () => {} }) {
                                 {selected ? (
                                   <span
                                     className={classNames(
-                                      active ? 'text-white' : 'text-indigo-600',
+                                      active ? 'text-white' : 'text-blue-600',
                                       'absolute inset-y-0 right-0 flex items-center pr-4'
                                     )}
                                   >
@@ -120,7 +120,7 @@ export default function LocationSel({ onChange = () => {} }) {
                 {({ open }) => (
                   <>
                     <div className="relative mt-2">
-                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-left text-black shadow-sm ring-1 ring-inset ring-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-left text-black shadow-sm ring-1 ring-inset ring-gray-700 focus:outline-none focus:ring custom-button sm:text-sm sm:leading-6">
                         <span className="block truncate">{selectedMedium || '구 / 군'}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                           <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -139,7 +139,7 @@ export default function LocationSel({ onChange = () => {} }) {
                               key={index}
                               className={({ active }) =>
                                 classNames(
-                                  active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+                                  active ? 'bg-blue-600 text-white' : 'text-gray-900',
                                   'relative cursor-default select-none py-2 pl-3 pr-9'
                                 )
                               }
@@ -153,7 +153,7 @@ export default function LocationSel({ onChange = () => {} }) {
                                   {selected ? (
                                     <span
                                       className={classNames(
-                                        active ? 'text-white' : 'text-indigo-600',
+                                        active ? 'text-white' : 'text-blue-600',
                                         'absolute inset-y-0 right-0 flex items-center pr-4'
                                       )}
                                     >
@@ -178,8 +178,13 @@ export default function LocationSel({ onChange = () => {} }) {
               <Listbox value={selectedSmall} onChange={handleSmallChange}>
                 {({ open }) => (
                   <>
+<<<<<<< Updated upstream
                     <div className="relative mt-2 pl-5">
                       <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-left text-black shadow-sm ring-1 ring-inset ring-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+=======
+                    <div className="relative mt-2">
+                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-left text-black shadow-sm ring-1 ring-inset ring-gray-700 focus:outline-none focus:ring-2 custom-button sm:text-sm sm:leading-6">
+>>>>>>> Stashed changes
                         <span className="block truncate">{selectedSmall || '읍 / 면 / 동'}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                           <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -198,7 +203,7 @@ export default function LocationSel({ onChange = () => {} }) {
                               key={index}
                               className={({ active }) =>
                                 classNames(
-                                  active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+                                  active ? 'bg-blue-600 text-white' : 'text-gray-900',
                                   'relative cursor-default select-none py-2 pl-3 pr-9'
                                 )
                               }
@@ -212,7 +217,7 @@ export default function LocationSel({ onChange = () => {} }) {
                                   {selected ? (
                                     <span
                                       className={classNames(
-                                        active ? 'text-white' : 'text-indigo-600',
+                                        active ? 'text-white' : 'text-blue-600',
                                         'absolute inset-y-0 right-0 flex items-center pr-4'
                                       )}
                                     >

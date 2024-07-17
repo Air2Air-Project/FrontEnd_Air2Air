@@ -19,13 +19,18 @@ export default function QuestionDetail() {
     console.log('Recoil user state:', user);
   }, [user]);
 
-  // 유저가 없을 경우 로그인 페이지로 리디렉션
-  useEffect(() => {
-    if (!user) {
-      alert('로그인이 필요합니다.');
-      navigate('/login'); // 로그인 페이지로 리디렉션
-    }
-  }, [user, navigate]);
+  //  // 유저 권한에 따른 리디렉션 처리
+  //  useEffect(() => {
+  //   if (user) {
+  //     if (user.role !== 'ROLE_ADMIN' && user.role !== 'ROLE_USER') {
+  //       alert('권한이 없습니다!');
+  //       navigate('/login');
+  //     } else if (user.role !== 'ROLE_ADMIN') {
+  //       alert('로그인이 필요합니다!');
+  //       navigate('/login');
+  //     }
+  //   }
+  // }, [user, navigate]);
 
   // 날짜 포맷팅 함수
   const formatDate = (dateString) => {
