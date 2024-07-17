@@ -19,6 +19,7 @@ import Myinfo_Page from './Pages/Myinfo_Page.js';
 import MyinfoEdit_Page from './Pages/MyinfoEdit_Page.js';
 import Answer_Page from './Pages/Answer_Page.js'
 import AnswerModify_Page from './Pages/AnswerModify_Page.js';
+import ResetPw_Page from './Pages/ResetPw_Page.js';
 
 // import { isLoggedInState } from './recoil/atoms';
 // import { useRecoilValue } from 'recoil';
@@ -54,7 +55,8 @@ function App() {
           <Route path="/answer/modify/:seq" element={<AnswerModify_Page />} />  
           <Route path="/mypage" element={<Myinfo_Page />} />
           <Route path="/mypageEdit" element={<MyinfoEdit_Page />} />
-         
+          <Route path="/resetPw" element={<ResetPw_Page />} />
+
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
