@@ -32,9 +32,9 @@ export default function FindId() {
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <form onSubmit={handleSubmit}>
               <table className="min-w-full divide-y divide-gray-300">
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-blue-500">
                   <tr>
-                    <td className="text-left px-4 py-2 text-gray-600 Haeparang">회원정보에 등록한 전화번호로 인증하기</td>
+                    <td className="text-left font-semibold text-lg px-4 py-2 text-blue-500">회원정보에 등록한 전화번호로 인증하기</td>
                   </tr>
                   <tr>
                     <td colSpan="2">
@@ -42,7 +42,7 @@ export default function FindId() {
                         type='text'
                         value={phoneNumber}
                         onChange={handleChange}
-                        className="whitespace-nowrap px-5 py-4 text-sm text-white bg-transparent placeholder-blue-300 w-full"
+                        className="whitespace-nowrap px-5 py-4 text-base text-blue-700 bg-transparent placeholder-blue-300 w-full"
                         placeholder='전화번호를 입력하세요.'
                       />
                     </td>

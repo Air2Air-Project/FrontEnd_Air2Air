@@ -2,52 +2,9 @@ import React, { useState, useRef } from 'react';
 import { ResponsiveAreaBump } from '@nivo/bump';
 import * as d3 from 'd3'; //데이터값을 화면 좌표에 매핑
 
-const PredictBump = () => {
+const PredictBump = ({dustData, cate}) => {
     const chartRef = useRef(null);
     const [tooltipContent, setTooltipContent] = useState(null);
-
-    const dustData = [
-        {
-            "id": "SO2",
-            "data": [
-                { "x": 1, "y": 10 },
-                { "x": 2, "y": 15 },
-                { "x": 3, "y": 11 },
-            ]
-        },
-        {
-            "id": "NO2",
-            "data": [
-                { "x": 1, "y": 15 },
-                { "x": 2, "y": 9 },
-                { "x": 3, "y": 16 },
-            ]
-        },
-        {
-            "id": "CO",
-            "data": [
-                { "x": 1, "y": 21 },
-                { "x": 2, "y": 9 },
-                { "x": 3, "y": 20 },
-            ]
-        },
-        {
-            "id": "PM10",
-            "data": [
-                { "x": 1, "y": 20 },
-                { "x": 2, "y": 19 },
-                { "x": 3, "y": 17 },
-            ]
-        },
-        {
-            "id": "PM2.5",
-            "data": [
-                { "x": 1, "y": 21 },
-                { "x": 2, "y": 11 },
-                { "x": 3, "y": 26 },
-            ]
-        }
-    ];
 
     const handleMouseMove = (point, event) => {
         const chart = chartRef.current;
@@ -77,14 +34,15 @@ const PredictBump = () => {
         });
         // console.log("tooltipContent:",tooltipContent)
     };
-
+    // {console.log("cate:",cate)};
     return (
-        <div className="relative h-96 w-[90%] bg-white rounded-2xl bg-opacity-90 text-black text-xs" ref={chartRef}>
+        <div className="relative h-96 w-[90%] bg-white rounded-2xl bg-opacity-90 text-black text-xs mb-5" ref={chartRef}>
             <ResponsiveAreaBump
                 data={dustData}
                 margin={{ top: 50, right: 80, bottom: 50, left: 80 }}
                 spacing={8}
-                colors={{ scheme: 'nivo' }}
+                colors={{ scheme: cate}}
+
                 blendMode="multiply"
                 defs={[
                     {
@@ -130,6 +88,7 @@ const PredictBump = () => {
                     legendOffset: 32,
                     truncateTickAt: 0
                 }}
+                
         onMouseMove={(point, event) => handleMouseMove(point, event)}
         tooltip={({ }) => {
           if(tooltipContent == null)
