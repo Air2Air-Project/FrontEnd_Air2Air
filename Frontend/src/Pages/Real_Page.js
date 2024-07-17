@@ -45,15 +45,6 @@ export default function Real_Page() {
 
       fetchWeatherData();
     }, [isLoggedIn, userLocation, selectedLocation]);
-<<<<<<< Updated upstream
-  return (
-    <div className='flex flex-col'>
-    <Nav/>
-    <div className="bg-[url('./components/background/cloudbg1.png')] text-black text-center rounded-t-3xl p-3 lg:h-[83vh] md:h-[100vh] flex justify-start items-center flex-col">
-    <h1 className="text-2xl font-bold text-center m-7 text-white">실시간 대기상태 정보</h1>
-    <LocationSel onChange={setSelectedLocation}/>
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4 mt-20 justify-center items-center w-full">
-=======
 
     useEffect(() => {
       const fetchWindData = async (location) => {
@@ -89,7 +80,6 @@ export default function Real_Page() {
           <h1 className="text-2xl font-bold text-center m-7 text-white">실시간 대기상태 정보</h1>
           <LocationSel onChange={setSelectedLocation} />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4 mt-5 justify-center items-center w-full">
->>>>>>> Stashed changes
             <DustCard title="오존" value={dustData.o3Value} grade={dustData.o3Grade} location={dustData.stationName} unit="ppm" />
             <DustCard title="아황산가스" value={dustData.so2Value} grade={dustData.so2Grade} location={dustData.stationName} unit="ppm" />
             <DustCard title="이산화질소" value={dustData.no2Value} grade={dustData.no2Grade} location={dustData.stationName} unit="ppm" />
