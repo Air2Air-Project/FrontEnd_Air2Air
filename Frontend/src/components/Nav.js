@@ -30,6 +30,7 @@ export default function Nav() {
     localStorage.removeItem('USER');
     localStorage.removeItem('username');
     localStorage.removeItem('email');
+    localStorage.removeItem('USER_LOCATION');
   };
 
   return (

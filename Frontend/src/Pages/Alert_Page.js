@@ -24,28 +24,77 @@ export default function Forecast_Page() {
     small: ''
   });
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setOutdoorIdx(80); // 예제 데이터 설정
+  //     try {
+  //       let cityResponse;//도시공해지수
+
+  //       console.log("loc:", userLocation);
+  //       if (selectedLocation.large) {
+  //         const { large, middle, small } = selectedLocation;
+  //         const query = `large=${large}&middle=${middle}&small=${small}`;
+  //         cityResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/CITY?${query}`);
+  //       } else if (isLoggedIn && userLocation) {
+  //         cityResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/CITY/${userLocation}`);
+  //       } else {
+  //         cityResponse = await axios.get('http://10.125.121.224:8080/alertAll/CITY');
+  //       }
+  //       setActData(cityResponse.data);
+  //       console.log("cityResponse:",cityResponse.data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [isLoggedIn, userLocation, selectedLocation]);
+
   useEffect(() => {
     const fetchData = async () => {
-      setOutdoorIdx(80); // 예제 데이터 설정
       try {
-        let activeResponse;
-        let polluteResponse;
+        let cityResponse; // 도시공해지수
+
         console.log("loc:", userLocation);
         if (selectedLocation.large) {
           const { large, middle, small } = selectedLocation;
           const query = `large=${large}&middle=${middle}&small=${small}`;
-          activeResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/ACTIVITY?${query}`);
-          polluteResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/POLLUTION?${query}`);
+          cityResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/CITY?${query}`);
         } else if (isLoggedIn && userLocation) {
-          activeResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/ACTIVITY/${userLocation}`);
-          polluteResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/POLLUTION?${userLocation}`);
+          cityResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/CITY/${userLocation}`);
         } else {
-          activeResponse = await axios.get('http://10.125.121.224:8080/alertAll/ACTIVITY');
-          polluteResponse = await axios.get('http://10.125.121.224:8080/alertAll/POLLUTION');
+          cityResponse = await axios.get('http://10.125.121.224:8080/alertAll/CITY');
         }
-        setActData(activeResponse.data);
-        setPolData(polluteResponse.data);
-        
+        setActData(cityResponse.data);
+        console.log("cityResponse:", cityResponse.data);
+
+        // 예제 데이터 설정
+        setOutdoorIdx(80); // 이 부분을 적절한 위치로 옮기거나 실제 데이터를 사용
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, [isLoggedIn, userLocation, selectedLocation]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let airResponse;//대기환경지수
+        console.log("loc:", userLocation);
+        if (selectedLocation.large) {
+          const { large, middle, small } = selectedLocation;
+          const query = `large=${large}&middle=${middle}&small=${small}`;
+          airResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/AIR?${query}`);
+        } else if (isLoggedIn && userLocation) {
+          console.log("여기");
+          airResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/AIR/${userLocation}`);
+        } else {
+          airResponse = await axios.get('http://10.125.121.224:8080/alertAll/AIR');
+        }
+        setPolData(airResponse.data);
+
+        console.log("airResponse:",airResponse.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -68,7 +117,7 @@ export default function Forecast_Page() {
     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     return new Date(dateTime).toLocaleDateString(undefined, options);
   };
-
+  console.log("actData:",actData);
   return (
     <>
       <Nav />
@@ -78,8 +127,8 @@ export default function Forecast_Page() {
           <LocationSel onChange={setSelectedLocation} className="min-w-[300px]" />
         </div>
         <div className="grid grid-cols-3 justify-center gap-8 mt-4 w-[90%]">
-          <Gauge powerData="70" title="도시공해지수" gaugeColor={["#95B8D1", "#05668D", "#05668D"]} />
-          <Gauge powerData="55" title="대기환경지수" gaugeColor={["#ffd60a", "#EBA6A9", "#e03400"]} />
+          <Gauge powerData={actData.length > 0 ? actData[0].value : 0} title="도시공해지수" gaugeColor={["#95B8D1", "#05668D", "#05668D"]} />
+          <Gauge powerData={polData.length > 0 ? polData[0].value : 0} title="대기환경지수" gaugeColor={["#ffd60a", "#EBA6A9", "#e03400"]} />
           <Gauge powerData={outdoorIdx} title="야외활동지수" gaugeColor={["#BBD5AF", "#BBD5AF", "#354f52"]} />
         </div>
         <div className='flex w-[90%] gap-8'>

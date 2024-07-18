@@ -98,11 +98,11 @@ export default function Register() {
     <div className="bg-white bg-opacity-70 p-10 rounded-2xl shadow-md w-full">
           {/* <form action="#" method="POST" className="space-y-6"> */}
             <div>
-              <label htmlFor="email" className="block text-base font-bold text-black">Email</label>
+              <label htmlFor="email" className="block text-base text-blue-400">Email</label>
               <div className='flex justify-between'>
-                <input type="text" id="email" name="email" value={formData.email} onChange={handleChange} className="mt-1 block w-3/4 p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent text-black" />
+                <input type="text" id="email" name="email" value={formData.email} onChange={handleChange} className="mt-1 block w-3/4 p-2 border border-blue-500 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent text-blue-500" />
                 <div className='flex justify-center items-center mr-5'>
-                  <button type="button" className='border border-black text-black hover:bg-white hover:bg-opacity-30 py-1 px-3 rounded-md'
+                  <button type="button" className='border border-blue-500 text-blue-400 hover:bg-white hover:bg-opacity-30 py-1 px-3 rounded-md'
                     onClick={handleCheckId}
                     >
                   중복확인</button>
@@ -116,11 +116,11 @@ export default function Register() {
             </div>
           {/* username check */}
           <div>
-              <label htmlFor="username" className="block text-base font-bold text-black pt-3">Username</label>
+              <label htmlFor="username" className="block text-base text-blue-400 pt-3">Username</label>
               <div className='flex justify-between'>
-                <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} className="mt-1 block w-3/4 p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent text-black" />
+                <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} className="mt-1 block w-3/4 p-2 border border-blue-500 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent text-blue-500" />
                 <div className='flex justify-center items-center mr-5'>
-                  <button type="button" className='border border-black text-black hover:bg-white hover:bg-opacity-30 py-1 px-3 rounded-md'
+                  <button type="button" className='border border-blue-500 text-blue-400 hover:bg-white hover:bg-opacity-30 py-1 px-3 rounded-md'
                     onClick={handleCheckName}
                     >
                   중복확인</button>
@@ -137,22 +137,22 @@ export default function Register() {
               <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent" />
             </div> */}
             <div className='mt-4'>
-              <label htmlFor="password" className="block text-base font-bold text-black">Password</label>
-              <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent text-black" />
+              <label htmlFor="password" className="block text-base font-bold text-blue-400">Password</label>
+              <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} className="mt-1 block w-full p-2 border border-blue-500 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent text-blue-500" />
               {!passwordValid && <p className="text-red-800 text-sm mt-1">비밀번호는 대소문자와 숫자를 각각 하나 이상 포함해야 합니다.</p>}
             </div>
             <div className='mt-4'>
-              <label htmlFor="phoneNumber" className="block text-base font-bold text-black">Cellphone</label>
-              <input type="text" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} className="mt-1 block w-full p-2 border border-gray-700 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent text-black" />
+              <label htmlFor="phoneNumber" className="block text-base font-bold text-blue-400">Cellphone</label>
+              <input type="text" id="phoneNumber" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} className="mt-1 block w-full p-2 border border-blue-500 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent text-blue-500" />
             </div>
             <div className='mt-4'>
-              <label htmlFor="region" className="block text-base font-bold text-black">관측소 선택</label>
+              <label htmlFor="region" className="block text-base font-bold text-blue-400">관측소 선택</label>
               <div className='flex justify-start items-center'>
               <LocationSel onChange={handleRegionChange}/>
               </div>
             </div>
             <div className="flex justify-center mt-8">
-              <button type="submit" className="w-full py-2 px-4 bg-[#153c27] text-white font-semibold rounded-md hover:bg-opacity-80">REGISTER</button>
+              <button type="submit" className="w-full py-2 px-4 bg-blue-300 text-white font-semibold rounded-md hover:bg-opacity-80">REGISTER</button>
             </div>
           {/* </form> */}
         </div>
