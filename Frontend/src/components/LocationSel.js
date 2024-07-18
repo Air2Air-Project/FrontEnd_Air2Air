@@ -46,13 +46,19 @@ export default function LocationSel({ onChange = () => {} }) {
       setSelectedSmall(value);
       const newAddress = { large: selectedLarge, middle: selectedMedium, small: value };
       const geoAddress = `${selectedLarge} ${selectedMedium} ${value}`;
+      const areaCD = getCD(value);
       // const newAddress = `${value}`;
       const info = getInfo(value);
-      onChange(newAddress, geoAddress, info);
+      onChange(newAddress, geoAddress, info, areaCD);
     };
     const getInfo = (value) => {
       const station = addressData.find(item => item.small === value);
       return station ? station.info : '';
+    };
+
+    const getCD = (value) => {
+      const station = addressData.find(item => item.small === value);
+      return station ? station.emd_cd : '';
     };
 
     return (

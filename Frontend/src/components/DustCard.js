@@ -43,7 +43,7 @@ const DustCard = ({ title, value, grade, location, unit, gust, deg }) => {
     }
   };
   return (
-    <div className="bg-white bg-opacity-80 p-5 rounded-2xl shadow-md flex w-full ">
+    <div className=" bg-white bg-opacity-80 p-5 rounded-2xl shadow-md flex w-full ">
       {/* <div className='flex flex-col w-full'> */}
       <div className="ml-4 mt-8 pb-3 w-[70px] h-[70px] justify-start">
         {renderIcon()}
@@ -56,16 +56,18 @@ const DustCard = ({ title, value, grade, location, unit, gust, deg }) => {
         </div>
         {title === '바람' && (
           <>
-            <p>속도: {value} {unit}</p>
-            <p>돌풍:{gust} m/s</p>
-            <p>방향: {deg} °</p>
+            {/* <p>속도: {value} {unit}</p> */}
+            <p>돌풍:{gust} m/s  방향: {deg} °</p>
+            {/* <p>방향: {deg} °</p> */}
           </>
         )}
-        <div className='flex justify-center items-center w-full'>
-          {/* <p className={textColor}><span className="inline-block w-4 h-4 text-xl mr-1"><ArrowIcon /></span> */}
-          <span className='text-black text-lg'>{renderGrade()}</span>
-          {/* </p> */}
-        </div>
+        {title !== '바람' && (
+          <div className='flex justify-center items-center w-full'>
+            {/* <p className={textColor}><span className="inline-block w-4 h-4 text-xl mr-1"><ArrowIcon /></span> */}
+            <span className='text-black text-lg'>{renderGrade()}</span>
+            {/* </p> */}
+            </div>
+        )}
       </div>
     </div>
   );

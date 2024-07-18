@@ -24,7 +24,7 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/login', formData);
+      const response = await axios.post('http://10.125.121.224:8080/login', formData);
       console.log('Login successful:', response.data.username);
       localStorage.setItem('ACCESS_TOKEN', response.headers['authorization']);
       localStorage.setItem('username', response.data.username);
