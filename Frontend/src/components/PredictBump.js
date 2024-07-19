@@ -36,7 +36,7 @@ const PredictBump = ({dustData, cate}) => {
     };
     // {console.log("cate:",cate)};
     return (
-        <div className="relative h-96 w-[90%] bg-white rounded-2xl bg-opacity-90 text-black text-xs mb-5" ref={chartRef}>
+        <div className="relative h-96 w-[90%] bg-white rounded-2xl bg-opacity-90 text-black font-bold mb-5" ref={chartRef}>
             <ResponsiveAreaBump
                 data={dustData}
                 margin={{ top: 50, right: 80, bottom: 50, left: 80 }}
@@ -71,7 +71,7 @@ const PredictBump = ({dustData, cate}) => {
                 startLabel="id"
                 endLabel="id"
                 axisTop={{
-                    tickSize: 5,
+                    tickSize: 10,
                     tickPadding: 5,
                     tickRotation: 0,
                     legend: '',

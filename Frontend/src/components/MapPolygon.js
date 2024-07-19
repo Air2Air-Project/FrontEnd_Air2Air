@@ -145,9 +145,10 @@ const MapPolygon = ({ address, info, areaCode }) => {
   };
 
   return (
-    
-      <div ref={mapElement} className='rounded-3xl mt-3 w-full flex h-[45%] justify-start mb-5' />
-  
+
+    <div className='flex h-full justify-center w-full'>
+      <div ref={mapElement} className='rounded-3xl w-full' style={{ height: '100%' }} />
+    </div>
   ); 
 };
 

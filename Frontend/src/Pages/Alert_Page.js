@@ -102,8 +102,8 @@ export default function Forecast_Page() {
     <>
       <Nav />
       <div className="bg-[url('./components/background/cloudbg1.png')] text-white text-center rounded-t-3xl p-3 h-[100vh] flex flex-col justify-start items-center">
-        <div className='m-10 font-bold text-2xl'>이상탐지 예측 알림</div>
-        <div className='w-[90%]'>
+        <div className='mt-10 mb-7 font-bold text-2xl'>이상탐지 예측 알림</div>
+        <div className='w-[90%] mb-3'>
           <LocationSel onChange={setSelectedLocation} className="min-w-[300px]" />
         </div>
         <div className="grid grid-cols-3 justify-center gap-8 mt-4 w-[90%]">
@@ -111,7 +111,7 @@ export default function Forecast_Page() {
           <Gauge powerData={polData.length > 0 ? polData[0].value : 0} title="대기환경지수" gaugeColor={["#ffd60a", "#EBA6A9", "#e03400"]} />
           <Gauge powerData={outdoorIdx} title="야외활동지수" gaugeColor={["#BBD5AF", "#BBD5AF", "#354f52"]} />
         </div>
-        <div className='flex w-[90%] gap-8'>
+        <div className='flex w-[90%] gap-8 mt-3'>
           <AlarmList data={actData} formatDateTime={formatDateTime} />
           <AlarmList data={polData} formatDateTime={formatDateTime} />
         </div>
