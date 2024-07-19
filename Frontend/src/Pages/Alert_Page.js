@@ -17,44 +17,18 @@ export default function Forecast_Page() {
   const [actData, setActData] = useState([]);
   const [polData, setPolData] = useState([]);
   const [outdoorIdx, setOutdoorIdx] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  const [showOutdoorModal, setShowOutdoorModal] = useState(false);
+  const [showCityModal, setShowCityModal] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState({
     large: '',
     middle: '',
     small: ''
   });
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setOutdoorIdx(80); // 예제 데이터 설정
-  //     try {
-  //       let cityResponse;//도시공해지수
-
-  //       console.log("loc:", userLocation);
-  //       if (selectedLocation.large) {
-  //         const { large, middle, small } = selectedLocation;
-  //         const query = `large=${large}&middle=${middle}&small=${small}`;
-  //         cityResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/CITY?${query}`);
-  //       } else if (isLoggedIn && userLocation) {
-  //         cityResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/CITY/${userLocation}`);
-  //       } else {
-  //         cityResponse = await axios.get('http://10.125.121.224:8080/alertAll/CITY');
-  //       }
-  //       setActData(cityResponse.data);
-  //       console.log("cityResponse:",cityResponse.data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [isLoggedIn, userLocation, selectedLocation]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         let cityResponse; // 도시공해지수
-
-        console.log("loc:", userLocation);
         if (selectedLocation.large) {
           const { large, middle, small } = selectedLocation;
           const query = `large=${large}&middle=${middle}&small=${small}`;
@@ -65,8 +39,6 @@ export default function Forecast_Page() {
           cityResponse = await axios.get('http://10.125.121.224:8080/alertAll/CITY');
         }
         setActData(cityResponse.data);
-        console.log("cityResponse:", cityResponse.data);
-
         // 예제 데이터 설정
         setOutdoorIdx(80); // 이 부분을 적절한 위치로 옮기거나 실제 데이터를 사용
 
@@ -81,13 +53,11 @@ export default function Forecast_Page() {
     const fetchData = async () => {
       try {
         let airResponse;//대기환경지수
-        console.log("loc:", userLocation);
         if (selectedLocation.large) {
           const { large, middle, small } = selectedLocation;
           const query = `large=${large}&middle=${middle}&small=${small}`;
           airResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/AIR?${query}`);
         } else if (isLoggedIn && userLocation) {
-          console.log("여기");
           airResponse = await axios.get(`http://10.125.121.224:8080/alertSelect/AIR/${userLocation}`);
         } else {
           airResponse = await axios.get('http://10.125.121.224:8080/alertAll/AIR');
@@ -105,12 +75,22 @@ export default function Forecast_Page() {
 
   useEffect(() => {
     if (outdoorIdx >= 50) {
-      setShowModal(true);
+      setShowOutdoorModal(true);
     }
   }, [outdoorIdx]);
 
-  const closeModal = () => {
-    setShowModal(false);
+  useEffect(() => {
+    if (actData.length > 0 && actData[0].value >= 60) {
+      setShowCityModal(true);
+    }
+  }, [actData]);
+
+  const closeOutdoorModal = () => {
+    setShowOutdoorModal(false);
+  };
+
+  const closeCityModal = () => {
+    setShowCityModal(false);
   };
 
   const formatDateTime = (dateTime) => {
@@ -136,8 +116,8 @@ export default function Forecast_Page() {
           <AlarmList data={polData} formatDateTime={formatDateTime} />
         </div>
         <Modal
-          isOpen={showModal}
-          onRequestClose={closeModal}
+          isOpen={showOutdoorModal}
+          onRequestClose={closeOutdoorModal}
           contentLabel="Warning Modal"
           style={{
             content: {
@@ -158,9 +138,40 @@ export default function Forecast_Page() {
             }
           }}
         >
-          <h2>주의!</h2>
-          <p>야외활동지수가 {outdoorIdx}이므로 야외활동을 자제하세요.</p>
-          <button onClick={closeModal} className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg">닫기</button>
+          <h2 className='font-extrabold text-blue-700 text-xl'>주의</h2>
+          <br/>
+          <p>야외활동지수가 {outdoorIdx}%이므로 야외활동을 자제하세요.</p>
+          <br/>
+          <button onClick={closeOutdoorModal} className="mt-4 bg-blue-400 text-white px-4 py-2 rounded-lg">닫기</button>
+        </Modal>
+        <Modal
+          isOpen={showCityModal}
+          onRequestClose={closeCityModal}
+          contentLabel="Warning Modal"
+          style={{
+            content: {
+              top: '50%',
+              left: '50%',
+              right: 'auto',
+              bottom: 'auto',
+              marginRight: '-50%',
+              transform: 'translate(-50%, -50%)',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              padding: '20px',
+              borderRadius: '10px',
+              width: '400px',
+              textAlign: 'center'
+            },
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }}
+        >
+          <h2 className='font-extrabold text-red-700 text-xl'>주의</h2>
+          <br/>
+          <p>도시공해지수가 {actData.length > 0 ? actData[0].value : 0}%이므로 주의가 필요합니다.</p>
+          <br/>
+          <button onClick={closeCityModal} className="mt-4 bg-red-400 text-white px-4 py-2 rounded-lg">닫기</button>
         </Modal>
       </div>
       <Footer />
