@@ -31,7 +31,7 @@ const useAutoLogout = (setIsModalOpen) => {
     } else {
       try {
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        const expirationTime = decodedToken.exp * 1000; // 만료 시간을 밀리초로 변환
+        const expirationTime = decodedToken.exp * 1000*600*100; // 만료 시간을 밀리초로 변환
         const currentTime = Date.now();
 
         if (currentTime >= expirationTime) {
