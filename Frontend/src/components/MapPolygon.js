@@ -130,11 +130,11 @@ const MapPolygon = ({ address, info, areaCode }) => {
           const polygon = new naver.maps.Polygon({
             map: map,
             paths: boundaryCoordinates,
-            fillColor: '#ff0000',
-            fillOpacity: 0.5,
-            strokeColor: '#ff0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
+            fillColor: '#3985F6',
+            fillOpacity: 0.6,  //폴리곤 투명도
+            strokeColor: '#2C6AC4',
+            strokeOpacity: 0.9,  //외각선 투명도
+            strokeWeight: 2, //외각선 두께
           });
           polygonRefs.current.push(polygon);
         });
@@ -145,9 +145,9 @@ const MapPolygon = ({ address, info, areaCode }) => {
   };
 
   return (
-    <div className='flex h-[77%] justify-center w-full'>
-      <div ref={mapElement} className='rounded-3xl mt-3 w-[90%]' style={{ height: '100%' }} />
-    </div>
+    
+      <div ref={mapElement} className='rounded-3xl mt-3 w-full flex h-[45%] justify-start mb-5' />
+  
   ); 
 };
 

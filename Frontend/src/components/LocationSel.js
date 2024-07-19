@@ -2,8 +2,8 @@ import {useState, useEffect,Fragment } from 'react';
 import addressData from '../data/station.json'
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import { useRecoilState } from 'recoil';
-import { userLocationState } from '../recoil/atoms';
+// import { useRecoilState } from 'recoil';
+// import { userLocationState } from '../recoil/atoms';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -68,7 +68,7 @@ export default function LocationSel({ onChange = () => {} }) {
               {({ open }) => (
                 <>
                   <div className="relative mt-2">
-                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-left text-blue-500 font-bold shadow-sm ring-1 ring-inset ring-blue-700 focus:outline-none focus:ring-2 custom-button sm:text-sm sm:leading-6">
+                  <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-center text-black font-bold shadow-sm ring-1 ring-inset  focus:outline-none focus:ring  sm:text-sm sm:leading-6">
                       <span className="block truncate">{selectedLarge || '시 / 도'}</span>
                       <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                         <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -126,7 +126,7 @@ export default function LocationSel({ onChange = () => {} }) {
                 {({ open }) => (
                   <>
                     <div className="relative mt-2">
-                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-left text-blue-500 font-bold shadow-sm ring-1 ring-inset ring-blue-700 focus:outline-none focus:ring custom-button sm:text-sm sm:leading-6">
+                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-center text-black font-bold shadow-sm ring-1 ring-inset  focus:outline-none focus:ring sm:text-sm sm:leading-6">
                         <span className="block truncate">{selectedMedium || '구 / 군'}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                           <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -185,7 +185,7 @@ export default function LocationSel({ onChange = () => {} }) {
                 {({ open }) => (
                   <>
                     <div className="relative mt-2">
-                      <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-left text-blue-500 font-bold shadow-sm ring-1 ring-inset ring-blue-700 focus:outline-none focus:ring-2 custom-button sm:text-sm sm:leading-6">
+                    <Listbox.Button className="relative w-full cursor-default rounded-md bg-white bg-opacity-80 py-1.5 pl-3 pr-10 text-center text-black font-bold shadow-sm ring-1 focus:outline-none focus:ring sm:text-sm sm:leading-6">
                         <span className="block truncate">{selectedSmall || '읍 / 면 / 동'}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                           <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />

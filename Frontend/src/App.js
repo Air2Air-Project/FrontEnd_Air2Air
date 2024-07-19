@@ -20,7 +20,7 @@ import MyinfoEdit_Page from './Pages/MyinfoEdit_Page.js';
 import Answer_Page from './Pages/Answer_Page.js'
 import AnswerModify_Page from './Pages/AnswerModify_Page.js';
 import ResetPw_Page from './Pages/ResetPw_Page.js';
-
+import useAutoLogout from './hooks/useAutoLogout';
 // import { isLoggedInState } from './recoil/atoms';
 // import { useRecoilValue } from 'recoil';
 
@@ -32,6 +32,8 @@ import ResetPw_Page from './Pages/ResetPw_Page.js';
 // };
 
 function App() {
+  // useAutoLogout();
+  
   return (
     <RecoilRoot>
       <BrowserRouter>
