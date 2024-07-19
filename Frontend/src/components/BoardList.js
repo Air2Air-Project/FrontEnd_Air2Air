@@ -20,7 +20,7 @@ export default function BoardList() {
 
   const fetchAllQuestions = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/boardlist');
+      const response = await axios.get('http://10.125.121.224:8080/boardlist');
       setQuestions(response.data);
       console.log(response.data);
     } catch (error) {
@@ -30,7 +30,7 @@ export default function BoardList() {
 
   const fetchFilteredQuestions = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/boardlist/search', {
+      const response = await axios.get('http://10.125.121.224:8080/boardlist/search', {
         params: {
           questionType,
           searchType,

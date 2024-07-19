@@ -101,9 +101,11 @@ export default function Forecast_Page() {
   return (
     <>
       <Nav />
-      <div className="bg-[url('./components/background/cloudbg1.png')] text-white text-center rounded-t-3xl p-3 h-[100vh] flex flex-col justify-start items-center">
+
+      <div className="bg-[url('./components/background/cloudbg1.png')] bg-cover text-white text-center rounded-t-3xl p-3 h-[100vh] flex flex-col justify-start items-center">
         <div className='mt-10 mb-7 font-bold text-2xl'>이상탐지 예측 알림</div>
         <div className='w-[90%] mb-3'>
+
           <LocationSel onChange={setSelectedLocation} className="min-w-[300px]" />
         </div>
         <div className="grid grid-cols-3 justify-center gap-8 mt-4 w-[90%]">

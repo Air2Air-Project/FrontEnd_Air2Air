@@ -20,7 +20,7 @@ export default function Header({ title }) {
     localStorage.removeItem('memberId');
     localStorage.removeItem('USER_LOCATION');
   };
-  
+
   return (
     <header className="w-full flex justify-start items-center bg-white bg-opacity-20 p-3 shadow rounded-lg Haeparang">
       <div className="flex w-full justify-between items-center ml-4">
@@ -34,7 +34,7 @@ export default function Header({ title }) {
                 Logout
               </button>
               <Link to="/myPage" className="flex justify-center items-center text-base bg-transparent text-white rounded-3xl p-1 px-2 mx-1 shadow hover:bg-gray-200 hover:bg-opacity-20">
-              <IoMdPerson 
+                <IoMdPerson
                   className="w-6 h-6 mr-2"
                 />
                 {user?.nickname}

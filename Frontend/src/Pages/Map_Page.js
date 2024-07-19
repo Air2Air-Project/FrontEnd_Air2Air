@@ -14,7 +14,7 @@ export default function Map_Page() {
   return (
     <>
     <Nav/>
-    <div className="bg-[url('./components/background/cloudbg1.png')] text-white rounded-t-3xl p-3 h-[83vh] flex flex-col justify-start items-center">
+    <div className="bg-[url('./components/background/cloudbg1.png')] bg-cover text-white rounded-t-3xl p-3 h-[83vh] flex flex-col justify-start items-center">
       <h1 className="text-2xl font-bold mb-4 text-center m-5">미세먼지 측정소</h1>
       <div className='w-[90%]'>
       <LocationSel onChange={handleAddressChange}/>

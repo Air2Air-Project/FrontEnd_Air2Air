@@ -43,7 +43,7 @@ export default function Inquiry() {
     try {
       // 서버로 form 데이터 전송
       console.log(formData);
-      await axios.post('http://localhost:8080/question/register', formData, {
+      await axios.post('http://10.125.121.224:8080/question/register', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
