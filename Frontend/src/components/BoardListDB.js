@@ -29,12 +29,12 @@ export default function BoardListDB() {
     } else {
       fetchAllQuestions(currentPage - 1);
     }
-  }, [currentPage]);
+  }, [currentPage, searchParams]);
 
   // 전체 질문을 가져오는 함수
   const fetchAllQuestions = async (page) => {
     try {
-      const response = await axios.get(`http://10.125.121.224:8080/boardlist/paging?page=${page}`);
+      const response = await axios.get(`http://localhost:8080/boardlist/paging?page=${page}`);
       setQuestions(response.data.content);
       setTotalPages(response.data.totalPages);
       setTotalCount(response.data.totalElements);
@@ -47,7 +47,7 @@ export default function BoardListDB() {
   // 필터링된 질문을 가져오는 함수
   const fetchFilteredQuestions = async (page, params) => {
     try {
-      const response = await axios.get(`http://10.125.121.224:8080/boardlist/search/paging`, {
+      const response = await axios.get(`http://localhost:8080/boardlist/search/paging`, {
         params: {
           ...params,
           page
@@ -103,8 +103,8 @@ export default function BoardListDB() {
   }, []);
 
   return (
-    <section className="section02 board_list_section flex flex-col justify-center items-center favicon">
-      <div className="relative top-0 sm:-top-40 md:-top-44 lg:-top-14 flex flex-col items-center bg-[#9DC3E6] text-white p-10 rounded-lg mb-8">
+    <section className=" flex flex-col justify-center items-center favicon">
+      <div className="relative top-0 sm:-top-0 md:-top-0 lg:-top-0 flex flex-col items-center bg-[#9DC3E6] text-white p-10 rounded-lg mb-8">
         <div className="flex items-center space-x-2">
           <img src={Comment} alt="icon" className="h-[75px] w-[75px] icon" />
           <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
@@ -113,7 +113,7 @@ export default function BoardListDB() {
         <p className="mt-2 text-lg">1:1 문의</p>
       </div>
 
-      <div className="relative top-0 sm:-top-40 md:-top-36 lg:-top-8 w-full px-4 py-4 bg-[#6a9af3] rounded-lg shadow-md mb-8">
+      <div className="relative top-0 sm:-top-0 md:-top-0 lg:-top-0 w-full px-4 py-4 bg-[#6a9af3] rounded-lg shadow-md mb-8">
         <div className="flex space-x-4">
           <select
             className="w-full p-2 border rounded text-black custom-select"
@@ -150,7 +150,7 @@ export default function BoardListDB() {
         </div>
       </div>
 
-      <div className="relative top-0 sm:-top-40 md:-top-36 lg:-top-8 w-full max-w-4xl mx-auto px-4 py-4 bg-white rounded-lg shadow-md">
+      <div className="relative top-0 sm:-top-0 md:-top-0 lg:-top-0 w-full max-w-4xl mx-auto px-4 py-4 mb-20 bg-white rounded-lg shadow-md">
         <h2 className="text-left text-xl font-bold text-black mb-4 border-b border-black pb-2">
           <span className="text-red-500">{totalCount}</span>개의 질문이 검색되었습니다.
         </h2>

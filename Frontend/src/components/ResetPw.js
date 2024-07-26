@@ -22,7 +22,7 @@ export default function ResetPw() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://10.125.121.224:8080/user/change/password', {
+      await axios.post('http://localhost:8080/user/change/password', {
         email,
         phoneNumber,
         password

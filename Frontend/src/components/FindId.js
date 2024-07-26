@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';  // Link 컴포넌트를 사용하기 위해 추가
 
 export default function FindId() {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -13,7 +14,7 @@ export default function FindId() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://10.125.121.224:8080/user/find/id', { phoneNumber });
+      const response = await axios.post('http://localhost:8080/user/find/id', { phoneNumber });
       setUserId(response.data);
       setError('');
       // console.log("response:", response);
@@ -50,18 +51,34 @@ export default function FindId() {
                 </tbody>
               </table>
               <div className='flex justify-end items-center'>
-                <button
-                  type="submit"
-                  className="bg-blue-500 bg-opacity-50 hover:bg-transparent hover:border hover:border-blue-300 hover:text-blue-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4"
-                >
-                  찾기
-                </button>
+                {!userId && (
+                  <button
+                    type="submit"
+                    className="bg-blue-500 bg-opacity-50 hover:bg-transparent hover:border hover:border-blue-300 hover:text-blue-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4"
+                  >
+                    찾기
+                  </button>
+                )}
               </div>
             </form>
             {userId && (
-              <div className='mt-4 p-2 text-center bg-transparent text-green-700 border border-green-700 rounded font-bold'>
-                사용자의 ID는 <span className='text-black'>{userId}</span> 입니다.
-              </div>
+              <>
+                <div className='mt-4 p-2 text-center bg-transparent text-green-700 border border-green-700 rounded font-bold'>
+                  사용자의 ID는 <span className='text-black'>{userId}</span> 입니다.
+                </div>
+                <div className='flex justify-center items-center mt-4 space-x-4'>
+                  <Link to="/login">
+                    <button className="bg-blue-500 bg-opacity-50 hover:bg-transparent hover:border hover:border-blue-300 hover:text-blue-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                      로그인
+                    </button>
+                  </Link>
+                  <Link to="/findPw">
+                    <button className="bg-blue-500 bg-opacity-50 hover:bg-transparent hover:border hover:border-blue-300 hover:text-blue-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                      비밀번호 찾기
+                    </button>
+                  </Link>
+                </div>
+              </>
             )}
             {error && (
               <div className='mt-4 p-2 text-center text-red-700 border border-red-700 bg-transparent rounded'>

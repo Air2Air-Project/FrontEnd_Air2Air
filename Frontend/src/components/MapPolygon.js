@@ -17,15 +17,16 @@ const MapPolygon = ({ address, info, areaCode }) => {
         const script = document.createElement("script");
         script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.REACT_APP_NAVER_MAP_API_KEY}&submodules=geocoder`;
         script.async = true;
-        script.onload = () => resolve(window.naver);
+        script.onload = () => {
+          if (window.naver && window.naver.maps) {
+            setNaverMapsLoaded(true);
+            resolve(window.naver);
+          } else {
+            reject(new Error('Naver Maps API failed to load'));
+          }
+        };
         script.onerror = reject;
         document.head.appendChild(script);
-        
-        if (window.naver && window.naver.maps) {
-          setNaverMapsLoaded(true);
-          resolve(window.naver);
-          return;
-        }
       });
     };
 
@@ -35,13 +36,14 @@ const MapPolygon = ({ address, info, areaCode }) => {
         if (!mapElement.current || !naver) return;
 
         const mapOptions = {
-          center: new naver.maps.LatLng(35.5667, 128.1667), // 초기 위치 설정
-          zoom: 9.2,
+          center: new naver.maps.LatLng(35.25, 128.25), // 초기 위치 설정
+          zoom: 9,
           zoomControl: false
         };
 
         const newMap = new naver.maps.Map(mapElement.current, mapOptions);
         setMap(newMap);
+        setNaverMapsLoaded(true);
       } catch (error) {
         console.error("Naver 지도 API 스크립트 로드 오류:", error);
       }
@@ -51,17 +53,24 @@ const MapPolygon = ({ address, info, areaCode }) => {
   }, []);
 
   useEffect(() => {
-    if (!naverMapsLoaded || !map || !address) return;
-    
+    // 수정된 부분: naverMapsLoaded, map, address, areaCode가 유효한지 확인하는 조건 추가
+    if (!naverMapsLoaded || !map || !address || !areaCode) return;
+
     const { naver } = window;
+    // 수정된 부분: naver.maps.Service 및 naver.maps.Service.geocode가 존재하는지 확인
+    if (!naver.maps.Service || !naver.maps.Service.geocode) {
+      console.error('Naver Maps Service or geocode function is not available');
+      return;
+    }
+
     naver.maps.Service.geocode({ query: address }, (status, response) => {
-      console.log(address)
+      console.log(address);
       if (status === naver.maps.Service.Status.OK && response.v2.addresses.length > 0) {
         const { x, y } = response.v2.addresses[0];
         const newLocation = new naver.maps.LatLng(y, x);
 
         map.setCenter(newLocation);
-        map.setZoom(12.5);
+        map.setZoom(12);
 
         if (!markerRef.current) {
           markerRef.current = new naver.maps.Marker({
@@ -78,7 +87,7 @@ const MapPolygon = ({ address, info, areaCode }) => {
         console.error(`주소 지오코딩에 실패했습니다: ${address}`);
       }
     });
-  }, [naverMapsLoaded, address, map]);
+  }, [naverMapsLoaded, address, map, areaCode]); // 수정된 부분: useEffect 의존성 배열에 naverMapsLoaded 추가
 
   const showInfoWindow = (map, marker, info) => {
     const infoWindowContent = `
@@ -100,6 +109,8 @@ const MapPolygon = ({ address, info, areaCode }) => {
   };
 
   const drawPolygon = async (center, emdCD) => {
+    if (!emdCD) return;
+
     console.log("emdCD: ", emdCD);
     const { naver } = window;
 
@@ -138,14 +149,13 @@ const MapPolygon = ({ address, info, areaCode }) => {
           });
           polygonRefs.current.push(polygon);
         });
-        });
+      });
     } catch (error) {
       console.error("폴리곤 데이터를 불러오는데 오류발생: ", error);
     }
   };
 
   return (
-
     <div className='flex h-full justify-center w-full'>
       <div ref={mapElement} className='rounded-3xl w-full' style={{ height: '100%' }} />
     </div>

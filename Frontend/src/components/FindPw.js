@@ -21,7 +21,7 @@ export default function FindPw() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://10.125.121.224:8080/user/find/password', formData);
+      const response = await axios.post('http://localhost:8080/user/find/password', formData);
       setError('');
       navigate('/resetPw', { state: { email: formData.email, phoneNumber: formData.phoneNumber } });
     } catch (error) {

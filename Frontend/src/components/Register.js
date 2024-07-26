@@ -45,7 +45,7 @@ export default function Register() {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://10.125.121.224:8080/signUp', formData)
+    axios.post('http://localhost:8080/signUp', formData)
       .then(response => {
         console.log('Data sent successfully:', response.data);
         navigate('/login'); // 성공적으로 등록된 후 로그인 페이지로 리디렉션
@@ -57,7 +57,7 @@ export default function Register() {
 
   const handleCheckId = async () => {
     try {
-      const response = await axios.post('http://10.125.121.224:8080/checkEmail', { email: formData.email });
+      const response = await axios.post('http://localhost:8080/checkEmail', { email: formData.email });
       if (response.data) {
         setIsEmailUnique(false);
         setCheckEmailMessage('이미 사용 중인 Email입니다.');
@@ -74,7 +74,7 @@ export default function Register() {
   //username check
   const handleCheckName = async () => {
     try {
-      const response = await axios.post('http://10.125.121.224:8080/checkUsername', { username: formData.username });
+      const response = await axios.post('http://localhost:8080/checkUsername', { username: formData.username });
       if (response.data) {
         setIsNameUnique(false);
         setCheckNameMessage('이미 사용 중인 username입니다.');

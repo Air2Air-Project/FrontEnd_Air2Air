@@ -32,7 +32,7 @@ export default function Answer() {
   // 질문 상세 정보를 가져오는 함수
   const fetchQuestionDetail = async () => {
     try {
-      const response = await axios.get(`http://10.125.121.224:8080/board/detail/${seq}`);
+      const response = await axios.get(`http://localhost:8080/board/detail/${seq}`);
       const data = response.data;
       console.log('응답 데이터:', data); // 전체 응답 데이터를 확인
       if (!data.member || !data.member.memberId) {
@@ -64,7 +64,7 @@ export default function Answer() {
   e.preventDefault();
   try {
     const response = await axios.post(
-      `http://10.125.121.224:8080/answer/register`,
+      `http://localhost:8080/answer/register`,
       {
         questionBoard: {
           seq: seq
@@ -96,7 +96,7 @@ export default function Answer() {
   return (
     <>
       <div className=" justify-center items-center">
-        <div className="relative sm:-top-0 md:-top-0 lg:-top-0 flex flex-col items-center bg-[#9DC3E6] text-white p-10 rounded-lg mb-8">
+        <div className="relative -top-0 sm:-top-0 md:-top-0 lg:-top-0 flex flex-col items-center bg-[#9DC3E6] text-white p-10 rounded-lg mb-8">
           <div className="flex items-center space-x-2">
             <img src={Comment} alt="icon" className="h-[75px] w-[75px] icon" />
             <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>

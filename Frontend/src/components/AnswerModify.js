@@ -26,7 +26,7 @@ export default function AnswerModify() {
 
   const fetchQuestionDetail = async () => {
     try {
-      const response = await axios.get(`http://10.125.121.224:8080/board/detail/${seq}`);
+      const response = await axios.get(`http://localhost:8080/board/detail/${seq}`);
       const data = response.data;
       console.log('응답 데이터:', data);
       setQuestionDetail(data);
@@ -50,7 +50,7 @@ export default function AnswerModify() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://10.125.121.224:8080/answer/modify/update`,
+        `http://localhost:8080/answer/modify/update`,
         {
           seq: questionDetail.answer.seq,
           content: answerContent,

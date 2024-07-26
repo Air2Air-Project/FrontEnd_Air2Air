@@ -91,11 +91,8 @@ class DustCard2 extends React.Component {
     return (
     //   <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <div className="bg-white bg-opacity-80 shadow-lg rounded-lg p-1">
-          {/* <div id="chart"> */}
             <ReactApexChart options={this.state.options} series={this.state.series} type="radialBar" height={350} />
-          {/* </div> */}
         </div>
-    //   </div>
     );
   }
 }

@@ -20,7 +20,7 @@ export default function MyPage() {
       }
 
       try {
-        const response = await axios.get(`http://10.125.121.224:8080/user/profile/${memberId}`, {
+        const response = await axios.get(`http://localhost:8080/user/profile/${memberId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -44,7 +44,7 @@ export default function MyPage() {
       const token = localStorage.getItem('ACCESS_TOKEN');
       const memberId = localStorage.getItem('memberId');
       try {
-        await axios.delete(`http://10.125.121.224:8080/user/profile/${memberId}`, {
+        await axios.delete(`http://localhost:8080/user/profile/${memberId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

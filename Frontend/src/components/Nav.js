@@ -12,6 +12,7 @@ const navigation = [
   { name: 'Alert', href: '/alert' },
   { name: 'Location', href: '/map' },
   { name: 'Board', href: '/board' },
+  // { name: 'Standard', href: '/standard' },
 ]
 
 export default function Nav() {

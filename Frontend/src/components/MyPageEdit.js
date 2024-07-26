@@ -32,7 +32,7 @@ export default function MyPageEdit() {
       }
 
       try {
-        const response = await axios.get(`http://10.125.121.224:8080/user/profile/${memberId}`, {
+        const response = await axios.get(`http://localhost:8080/user/profile/${memberId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -74,7 +74,7 @@ export default function MyPageEdit() {
     try {
       console.log("newRegion:",localUser.region);
       
-      const response = await axios.put(`http://10.125.121.224:8080/user/profile`, localUser, {
+      const response = await axios.put(`http://localhost:8080/user/profile`, localUser, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

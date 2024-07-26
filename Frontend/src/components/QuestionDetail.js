@@ -19,18 +19,7 @@ export default function QuestionDetail() {
     console.log('Recoil user state:', user);
   }, [user]);
 
-  //  // 유저 권한에 따른 리디렉션 처리
-  //  useEffect(() => {
-  //   if (user) {
-  //     if (user.role !== 'ROLE_ADMIN' && user.role !== 'ROLE_USER') {
-  //       alert('권한이 없습니다!');
-  //       navigate('/login');
-  //     } else if (user.role !== 'ROLE_ADMIN') {
-  //       alert('로그인이 필요합니다!');
-  //       navigate('/login');
-  //     }
-  //   }
-  // }, [user, navigate]);
+
 
   // 날짜 포맷팅 함수
   const formatDate = (dateString) => {
@@ -44,7 +33,7 @@ export default function QuestionDetail() {
   // 질문 상세 정보를 가져오는 함수
   const fetchQuestionDetail = async () => {
     try {
-      const response = await axios.get(`http://10.125.121.224:8080/board/detail/${seq}`);
+      const response = await axios.get(`http://localhost:8080/board/detail/${seq}`);
       const data = response.data;
       console.log('응답 데이터:', data); // 전체 응답 데이터를 확인
       if (!data.member || !data.member.memberId) {
@@ -72,7 +61,7 @@ export default function QuestionDetail() {
 
   const handleQuestionDelete =  () => {
     try {
-      const response = axios.delete('http://10.125.121.224:8080/question/delete', {
+      const response = axios.delete('http://localhost:8080/question/delete', {
         params: {
           questionId: seq,
           memberId: user ? user.memberId : null,
@@ -86,14 +75,15 @@ export default function QuestionDetail() {
       setIsDeleted(true);
       navigate('/boardlist');
     } catch (error) {
-      console.error('삭제 중 오류 발생: ', error);
+      console.log('삭제 중 오류 발생: ', error);
+      // console.log('삭제 실패', error)
       alert('삭제 실패');
     }
   };
 
   const handleAnswerDelete = () => {
     try {
-      const response = axios.delete('http://10.125.121.224:8080/answer/delete', {
+      const response = axios.delete('http://localhost:8080/answer/delete', {
         params: {
           answerId: questionDetail.answer.seq,
           memberId: user.memberId,
@@ -119,7 +109,7 @@ export default function QuestionDetail() {
   return (
     <>
       <div className="h- justify-center items-center">
-        <div className="relative sm:-top-10 md:-top-10 lg:-top-10 flex flex-col items-center bg-[#9DC3E6] text-white p-10 rounded-lg mb-8">
+        <div className="relative sm:-top-0 md:-top-0 lg:-top-0 flex flex-col items-center bg-[#9DC3E6] text-white p-10 rounded-lg mb-8">
           <div className="flex items-center space-x-2">
             <img src={Comment} alt="icon" className="h-[75px] w-[75px] animate-scale-up" />
             <h1 className="text-5xl font-bold">무엇을 도와드릴까요?</h1>
@@ -128,7 +118,7 @@ export default function QuestionDetail() {
           <p className="mt-2 text-lg">1:1 문의</p>
         </div>
 
-        <form className="relative top-0 sm:-top-10 md:-top-10 lg:-top-10 mb-20 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <form className="relative top-0 sm:-top-0 md:-top-0 lg:-top-0 mb-20 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
           <div className="text-left font-bold text-black mb-4 border-b border-black pb-2">
             <div className="text-gray-600 mb-2">
               <span>작성자: {questionDetail.writer} </span>
@@ -172,14 +162,17 @@ export default function QuestionDetail() {
                   <Link to={`/answer/modify/${seq}`}>
                     <button  className="bg-gray-200 text-black py-2 px-4 rounded shadow">수정</button>
                   </Link>
-                  <button onClick={handleAnswerDelete} className="bg-gray-200 text-black py-2 px-4 rounded shadow">삭제</button>
+                  <button onClick={handleAnswerDelete} className="bg-red-300 text-black py-2 px-4 rounded shadow">답변 삭제</button>
+                  <button onClick={handleQuestionDelete} className="bg-red-400 text-black py-2 px-4 rounded shadow">질문 삭제</button>
                 </>
                 )
               ) : (
                 user && user.role === 'ROLE_ADMIN' && (
-                  <Link to={`/answer/${seq}`}>
+                  <>                  <Link to={`/answer/${seq}`}>
                     <button className="bg-gray-200 text-black py-2 px-4 rounded shadow">답변 등록</button>
                   </Link>
+                  <button onClick={handleQuestionDelete} className="bg-red-400 text-black py-2 px-4 rounded shadow">삭제</button>
+                  </>
                 )
               )}
             </div>

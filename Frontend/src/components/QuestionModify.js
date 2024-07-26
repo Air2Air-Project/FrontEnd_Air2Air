@@ -44,7 +44,7 @@ export default function Modify() {
   useEffect(() => {
     const fetchQuestionDetail = async () => {
       try {
-        const response = await axios.get(`http://10.125.121.224:8080/board/detail/${seq}`);
+        const response = await axios.get(`http://localhost:8080/board/detail/${seq}`);
         const { title, content, questionType } = response.data;
         setQuestionData({
           seq: seq,
@@ -91,7 +91,7 @@ export default function Modify() {
       console.log('전송할 데이터:', JSON.stringify(dataToSend, null, 2));
 
       const response = await axios.put(
-        `http://10.125.121.224:8080/question/modify/update`,
+        `http://localhost:8080/question/modify/update`,
         dataToSend,
         {
           headers: {

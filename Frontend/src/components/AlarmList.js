@@ -49,7 +49,7 @@ const AlarmList = ({ data, formatDateTime, limit }) => {
                     >
                       {getIcon(event.alertType)}
                     </span>
-                    <time dateTime={event.alertTime} className="text-base text-gray-500">
+                    <time dateTime={event.alertTime} className="text-base text-gray-500 p-2">
                       {formatDateTime(event.alertTime)} &nbsp;
                     </time>
                     <p className="text-base text-gray-500">

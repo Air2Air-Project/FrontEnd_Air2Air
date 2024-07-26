@@ -19,10 +19,10 @@ import Myinfo_Page from './Pages/Myinfo_Page.js';
 import MyinfoEdit_Page from './Pages/MyinfoEdit_Page.js';
 import Answer_Page from './Pages/Answer_Page.js';
 import AnswerModify_Page from './Pages/AnswerModify_Page.js';
+import Standard_Page from './Pages/Standard_Page.js';
 import ResetPw_Page from './Pages/ResetPw_Page.js';
 import useAutoLogout from './hooks/useAutoLogout.js';// useAutoLogout 훅 가져오기
 import LogoutModal from './components/LogoutModal';
-
 function AppContent() {
   // useAutoLogout(); // 자동 로그아웃 훅 호출
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,6 +51,8 @@ function AppContent() {
       <Route path="/mypage" element={<Myinfo_Page />} />
       <Route path="/mypageEdit" element={<MyinfoEdit_Page />} />
       <Route path="/resetPw" element={<ResetPw_Page />} />
+      {/* <Route path="/Standard" element={<Standard_Page />} />  */}
+      
     </Routes>
     </>
   );
